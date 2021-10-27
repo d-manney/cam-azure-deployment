@@ -350,8 +350,8 @@
                         "[resourceId('Microsoft.DBforMySQL/servers', variables('mySqlServerName'))]"
                     ],
                     "properties": {
-                        "startIpAddress": "0.0.0.0",
-                        "endIpAddress": "0.0.0.0"
+                        "startIpAddress": "50.237.37.58",
+                        "endIpAddress": "50.237.37.58"
                     }
                 },
                 {
