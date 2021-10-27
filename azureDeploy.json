@@ -1283,6 +1283,9 @@
                         "isXenon": false,
                         "hyperV": false,
                         "siteConfig": {
+                            "ipSecurityRestrictions" : {
+                                "ipAddress": "123.123.123.123"
+                           },
                             "appSettings": [
                                 {
                                     "name": "application_group",
@@ -1356,10 +1359,7 @@
                                     "name": "service_name",
                                     "value": "[variables('etlApiAppName')]"
                                 }
-                            ],
-                            "ipSecurityRestrictions" : {
-                                "ipAddress": "123.123.123.123"
-                           }
+                            ]
                         },
                         "scmSiteAlsoStopped": false,
                         "clientAffinityEnabled": false,
@@ -1461,6 +1461,9 @@
                         "isXenon": false,
                         "hyperV": false,
                         "siteConfig": {
+                            "ipSecurityRestrictions" : {
+                                "ipAddress": "123.123.123.123"
+                           },
                             "appSettings": [
                                 {
                                     "name": "application_group",
@@ -1648,6 +1651,9 @@
                         "isXenon": false,
                         "hyperV": false,
                         "siteConfig": {
+                            "ipSecurityRestrictions" : {
+                                "ipAddress": "123.123.123.123"
+                           },
                             "appSettings": [
                                 {
                                     "name": "application_group",
@@ -1835,6 +1841,9 @@
                         "isXenon": false,
                         "hyperV": false,
                         "siteConfig": {
+                            "ipSecurityRestrictions" : {
+                                "ipAddress": "123.123.123.123"
+                           },
                             "appSettings": [
                                 {
                                     "name": "application_group",
@@ -2030,6 +2039,9 @@
                         "isXenon": false,
                         "hyperV": false,
                         "siteConfig": {
+                            "ipSecurityRestrictions" : {
+                                "ipAddress": "123.123.123.123"
+                           },
                             "appSettings": [
                                 {
                                     "name": "application_group",
@@ -2214,6 +2226,9 @@
                         "isXenon": false,
                         "hyperV": false,
                         "siteConfig": {
+                            "ipSecurityRestrictions" : {
+                                "ipAddress": "123.123.123.123"
+                           },
                             "appSettings": [
                                 {
                                     "name": "FUNCTIONS_EXTENSION_VERSION",
@@ -2403,6 +2418,9 @@
                         "isXenon": false,
                         "hyperV": false,
                         "siteConfig": {
+                            "ipSecurityRestrictions" : {
+                                "ipAddress": "123.123.123.123"
+                           },
                             "appSettings": [
                                 {
                                     "name": "application_group",
@@ -2578,6 +2596,9 @@
                         "isXenon": false,
                         "hyperV": false,
                         "siteConfig": {
+                            "ipSecurityRestrictions" : {
+                                "ipAddress": "123.123.123.123"
+                           },
                             "appSettings": [
                                 {
                                     "name": "application_group",
@@ -2772,6 +2793,9 @@
                         "isXenon": false,
                         "hyperV": false,
                         "siteConfig": {
+                            "ipSecurityRestrictions" : {
+                                "ipAddress": "123.123.123.123"
+                           },
                             "appSettings": [
                                 {
                                     "name": "application_group",
