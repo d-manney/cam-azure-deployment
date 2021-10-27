@@ -3665,7 +3665,19 @@
                 "principalId": "[if(variables('isCS'), reference(resourceId('Microsoft.Web/sites', variables('csRetryAppName')), '2018-02-01', 'Full').identity.principalId, '')]",
                 "principalType": "ServicePrincipal"
             }
-        }
+        },
+        {
+            "properties": {
+              "ipSecurityRestrictions": [
+                {
+                  "ipAddress": "122.133.144.0/24",
+                  "action": "Allow",
+                  "priority": 100,
+                  "name": "IP example rule"
+                }
+              ]
+            }
+          }
     ],
     "outputs": {
         "initializationFunctionUrl": {
