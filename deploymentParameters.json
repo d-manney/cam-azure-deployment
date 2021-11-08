@@ -28,6 +28,8 @@
       },
       "administratorLoginPassword":{
          "value": "#db_password#"
-      }
+      },
+      "functionsAppIP":{
+         "value": "#ip#"
    }
 }
