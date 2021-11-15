@@ -61,13 +61,6 @@
             "metadata": {
                 "description": "MySQL Database administrator password"
             }
-        },
-        "functionsAppIP": {
-            "type": "string",
-            "minLength": 7,
-            "metadata": {
-                "description": "The IP address added here will restrict the access to function apps created"
-            }
         }
     },
     "variables": {
@@ -160,7 +153,6 @@
         "strgBlobOwnerCsRetryAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('csRetryAppName')), resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), variables('strgBlobDataOwner'))]",
         "isETL": "[or(equals(parameters('Features'), 'ETL'), equals(parameters('Features'), 'Both'))]",
         "isCS": "[or(equals(parameters('Features'), 'Content Sync'), equals(parameters('Features'), 'Both'))]",
-        "functionsAppIP": "[concat(parameters('functionsAppIP'), '/', '24')]",
         "branch": "master"
     },
     "resources": [
@@ -1291,14 +1283,6 @@
                         "isXenon": false,
                         "hyperV": false,
                         "siteConfig": {
-                            "ipSecurityRestrictions": [
-                                {
-                                  "ipAddress": "[variables('functionsAppIP')]",
-                                  "action": "Allow",
-                                  "priority": 100,
-                                  "name": "IP example rule"
-                                }
-                              ],
                             "appSettings": [
                                 {
                                     "name": "application_group",
@@ -1474,14 +1458,6 @@
                         "isXenon": false,
                         "hyperV": false,
                         "siteConfig": {
-                            "ipSecurityRestrictions": [
-                                {
-                                  "ipAddress": "[variables('functionsAppIP')]",
-                                  "action": "Allow",
-                                  "priority": 100,
-                                  "name": "IP example rule"
-                                }
-                              ],
                             "appSettings": [
                                 {
                                     "name": "application_group",
@@ -1669,14 +1645,6 @@
                         "isXenon": false,
                         "hyperV": false,
                         "siteConfig": {
-                            "ipSecurityRestrictions": [
-                                {
-                                  "ipAddress": "[variables('functionsAppIP')]",
-                                  "action": "Allow",
-                                  "priority": 100,
-                                  "name": "IP example rule"
-                                }
-                              ],
                             "appSettings": [
                                 {
                                     "name": "application_group",
@@ -1864,14 +1832,6 @@
                         "isXenon": false,
                         "hyperV": false,
                         "siteConfig": {
-                            "ipSecurityRestrictions": [
-                                {
-                                  "ipAddress": "[variables('functionsAppIP')]",
-                                  "action": "Allow",
-                                  "priority": 100,
-                                  "name": "IP example rule"
-                                }
-                              ],
                             "appSettings": [
                                 {
                                     "name": "application_group",
@@ -2067,14 +2027,6 @@
                         "isXenon": false,
                         "hyperV": false,
                         "siteConfig": {
-                            "ipSecurityRestrictions": [
-                                {
-                                  "ipAddress": "[variables('functionsAppIP')]",
-                                  "action": "Allow",
-                                  "priority": 100,
-                                  "name": "IP example rule"
-                                }
-                              ],
                             "appSettings": [
                                 {
                                     "name": "application_group",
@@ -2259,14 +2211,6 @@
                         "isXenon": false,
                         "hyperV": false,
                         "siteConfig": {
-                            "ipSecurityRestrictions": [
-                                {
-                                  "ipAddress": "[variables('functionsAppIP')]",
-                                  "action": "Allow",
-                                  "priority": 100,
-                                  "name": "IP example rule"
-                                }
-                              ],
                             "appSettings": [
                                 {
                                     "name": "FUNCTIONS_EXTENSION_VERSION",
@@ -2456,14 +2400,6 @@
                         "isXenon": false,
                         "hyperV": false,
                         "siteConfig": {
-                            "ipSecurityRestrictions": [
-                                {
-                                  "ipAddress": "[variables('functionsAppIP')]",
-                                  "action": "Allow",
-                                  "priority": 100,
-                                  "name": "IP example rule"
-                                }
-                              ],
                             "appSettings": [
                                 {
                                     "name": "application_group",
@@ -2639,14 +2575,6 @@
                         "isXenon": false,
                         "hyperV": false,
                         "siteConfig": {
-                            "ipSecurityRestrictions": [
-                                {
-                                  "ipAddress": "[variables('functionsAppIP')]",
-                                  "action": "Allow",
-                                  "priority": 100,
-                                  "name": "IP example rule"
-                                }
-                              ],
                             "appSettings": [
                                 {
                                     "name": "application_group",
@@ -2841,14 +2769,6 @@
                         "isXenon": false,
                         "hyperV": false,
                         "siteConfig": {
-                            "ipSecurityRestrictions": [
-                                {
-                                  "ipAddress": "[variables('functionsAppIP')]",
-                                  "action": "Allow",
-                                  "priority": 100,
-                                  "name": "IP example rule"
-                                }
-                              ],
                             "appSettings": [
                                 {
                                     "name": "application_group",
