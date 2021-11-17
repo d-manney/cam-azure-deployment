@@ -261,7 +261,7 @@
                 "allowBlobPublicAccess": true,
                 "allowSharedKeyAccess": true,
                 "networkAcls": {
-                    "bypass": "None",
+                    "bypass": "AzureServices",
                     "virtualNetworkRules": [],
                     "ipRules": [],
                     "defaultAction": "Deny"
