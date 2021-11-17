@@ -129,6 +129,17 @@
             "metadata": {
               "description": "Location for all resources."
             }
+        },
+        "functionPlanOS": {
+            "type": "string",
+            "defaultValue": "Windows",
+            "allowedValues": [
+              "Windows",
+              "Linux"
+            ],
+            "metadata": {
+              "description": "Specifies the OS used for the Azure Function hosting plan."
+            }
         }
     },
     "variables": {
@@ -230,6 +241,7 @@
         "privateStorageQueueDnsZoneName": "[format('privatelink.queue.{0}', environment().suffixes.storage)]",
         "privateEndpointStorageQueueName": "[format('{0}-queue-private-endpoint', variables('storageAccountName'))]",
         "functionContentShareName": "function-content-share",
+        "isReserved": "[if(equals(parameters('functionPlanOS'), 'Linux'), true(), false())]",
         "branch": "master"
     },
     "resources": [
@@ -1363,7 +1375,7 @@
                             }
                         ],
                         "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('webServerName'))]",
-                        "reserved": false,
+                        "reserved": "[variables('isReserved')]",
                         "isXenon": false,
                         "hyperV": false,
                         "siteConfig": {
@@ -1439,6 +1451,18 @@
                                 {
                                     "name": "service_name",
                                     "value": "[variables('etlApiAppName')]"
+                                },
+                                {
+                                    "name": "WEBSITE_VNET_ROUTE_ALL",
+                                    "value": "1"
+                                },
+                                {
+                                    "name": "WEBSITE_CONTENTOVERVNET",
+                                    "value": "1"
+                                },
+                                {
+                                    "name": "WEBSITE_CONTENTSHARE",
+                                    "value": "[variables('functionContentShareName')]"
                                 }
                             ]
                         },
@@ -3781,7 +3805,7 @@
                 {
                   "name": "[parameters('privateEndpointSubnetName')]",
                   "properties": {
-                    "privateEndpointNetworkPolicies": "Disabled",
+                    "privateEndpointNetworkPolicies": "Enabled",
                     "privateLinkServiceNetworkPolicies": "Enabled",
                     "addressPrefix": "[parameters('privateEndpointSubnetAddressPrefix')]"
                   }
