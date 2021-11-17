@@ -3789,7 +3789,7 @@
                 {
                   "name": "[parameters('functionSubnetName')]",
                   "properties": {
-                    "privateEndpointNetworkPolicies": "Enabled",
+                    "privateEndpointNetworkPolicies": "Disabled",
                     "privateLinkServiceNetworkPolicies": "Enabled",
                     "delegations": [
                       {
@@ -3805,7 +3805,7 @@
                 {
                   "name": "[parameters('privateEndpointSubnetName')]",
                   "properties": {
-                    "privateEndpointNetworkPolicies": "Enabled",
+                    "privateEndpointNetworkPolicies": "Disabled",
                     "privateLinkServiceNetworkPolicies": "Enabled",
                     "addressPrefix": "[parameters('privateEndpointSubnetAddressPrefix')]"
                   }
