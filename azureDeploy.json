@@ -277,7 +277,7 @@
                     "virtualNetworkRules": [
                         {
                           "action": "Allow",
-                          "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]"
+                          "id": "[resourceId('Microsoft.Network/virtualNetworks', 'VNet1')]"
                         }
                     ],
                     "ipRules": [],
