@@ -274,7 +274,12 @@
                 "allowSharedKeyAccess": true,
                 "networkAcls": {
                     "bypass": "AzureServices",
-                    "virtualNetworkRules": [],
+                    "virtualNetworkRules": [
+                        {
+                          "action": "Allow",
+                          "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]"
+                        }
+                    ],
                     "ipRules": [],
                     "defaultAction": "Deny"
                 },
