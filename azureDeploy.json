@@ -1181,6 +1181,153 @@
             }
         },
         {
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2020-08-01-preview",
+            "name": "[variables('storageAccountName')]",
+            "location": "[variables('location')]",
+            "sku": {
+                "name": "Standard_RAGRS"
+            },
+            "kind": "StorageV2",
+            "properties": {
+                "minimumTlsVersion": "TLS1_2",
+                "allowBlobPublicAccess": true,
+                "allowSharedKeyAccess": true,
+                "networkAcls": {
+                    "bypass": "AzureServices",
+                    "virtualNetworkRules": [
+                        {
+                          "action": "Allow",
+                          "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('privateEndpointSubnetName'))]"
+                        }
+                    ],
+                    "ipRules": [],
+                    "defaultAction": "Deny"
+                },
+                "supportsHttpsTrafficOnly": true,
+                "encryption": {
+                    "services": {
+                        "file": {
+                            "keyType": "Account",
+                            "enabled": true
+                        },
+                        "blob": {
+                            "keyType": "Account",
+                            "enabled": true
+                        }
+                    },
+                    "keySource": "Microsoft.Storage"
+                },
+                "accessTier": "Hot"
+            },
+            "resources": [
+                {
+                    "type": "Microsoft.Storage/storageAccounts/encryptionScopes",
+                    "apiVersion": "2020-08-01-preview",
+                    "name": "[concat(variables('storageAccountName'), '/DataAtRest')]",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+                    ],
+                    "properties": {
+                        "source": "Microsoft.Storage",
+                        "state": "Enabled"
+                    }
+                },
+                {
+                    "type": "Microsoft.Storage/storageAccounts/blobServices",
+                    "apiVersion": "2020-08-01-preview",
+                    "name": "[concat(variables('storageAccountName'), '/default')]",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+                    ],
+                    "sku": {
+                        "name": "Standard_RAGRS",
+                        "tier": "Standard"
+                    },
+                    "properties": {
+                        "cors": {
+                            "corsRules": []
+                        },
+                        "deleteRetentionPolicy": {
+                            "enabled": false
+                        }
+                    },
+                    "resources": [
+                        {
+                            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+                            "apiVersion": "2020-08-01-preview",
+                            "name": "[concat(variables('storageAccountName'), '/default/', variables('applicationConfigBucket'))]",
+                            "dependsOn": [
+                                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', variables('storageAccountName'), 'default')]",
+                                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+                            ],
+                            "properties": {
+                                "defaultEncryptionScope": "$account-encryption-key",
+                                "denyEncryptionScopeOverride": false,
+                                "publicAccess": "None"
+                            }
+                        },
+
+                        {
+                            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+                            "apiVersion": "2020-08-01-preview",
+                            "name": "[concat(variables('storageAccountName'), '/default/', variables('encryptedBucket'))]",
+                            "dependsOn": [
+                                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', variables('storageAccountName'), 'default')]",
+                                "[resourceId('Microsoft.Storage/storageAccounts/encryptionScopes', variables('storageAccountName'), 'DataAtRest')]",
+                                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+                            ],
+                            "properties": {
+                                "defaultEncryptionScope": "DataAtRest",
+                                "denyEncryptionScopeOverride": true,
+                                "publicAccess": "None"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "[concat(variables('storageAccountName'), '/default')]",
+                    "type": "Microsoft.Storage/storageAccounts/managementPolicies",
+                    "apiVersion": "2020-08-01-preview",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Storage/storageAccounts/blobServices/containers', variables('storageAccountName'), 'default', variables('encryptedBucket'))]",
+                        "[resourceId('Microsoft.Storage/storageAccounts/blobServices', variables('storageAccountName'), 'default')]",
+                        "[resourceId('Microsoft.Storage/storageAccounts/encryptionScopes', variables('storageAccountName'), 'DataAtRest')]",
+                        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+                    ],
+                    "properties": {
+                        "policy": {
+                            "rules": [
+                                {
+                                    "enabled": true,
+                                    "name": "lifecyclepolicy",
+                                    "type": "Lifecycle",
+                                    "definition": {
+                                        "actions": {
+                                            "baseBlob": {
+                                                "delete": {
+                                                    "daysAfterModificationGreaterThan": 30
+                                                }
+                                            }
+                                        },
+                                        "filters": {
+                                            "blobTypes": [
+                                                "blockBlob"
+                                            ],
+                                            "prefixMatch": [
+                                                "[concat(variables('encryptedBucket'), '/etl-actions')]",
+                                                "[concat(variables('encryptedBucket'), '/etl-process')]"
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
             "condition": "[variables('isETL')]",
             "type": "Microsoft.Insights/components",
             "apiVersion": "2020-02-02-preview",
@@ -3936,155 +4083,6 @@
             "dependsOn": [
               "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
               "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]"
-            ]
-        },
-        {
-            "type": "Microsoft.Storage/storageAccounts",
-            "apiVersion": "2020-08-01-preview",
-            "name": "[variables('storageAccountName')]",
-            "location": "[variables('location')]",
-            "sku": {
-                "name": "Standard_RAGRS",
-                "tier": "Standard"
-            },
-            "kind": "StorageV2",
-            "properties": {
-                "minimumTlsVersion": "TLS1_2",
-                "allowBlobPublicAccess": true,
-                "allowSharedKeyAccess": true,
-                "networkAcls": {
-                    "bypass": "AzureServices",
-                    "virtualNetworkRules": [
-                        {
-                          "action": "Allow",
-                          "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('privateEndpointSubnetName'))]",
-                          "state": "provisioning"
-                        }
-                    ],
-                    "ipRules": [],
-                    "defaultAction": "Deny"
-                },
-                "supportsHttpsTrafficOnly": true,
-                "encryption": {
-                    "services": {
-                        "file": {
-                            "keyType": "Account",
-                            "enabled": true
-                        },
-                        "blob": {
-                            "keyType": "Account",
-                            "enabled": true
-                        }
-                    },
-                    "keySource": "Microsoft.Storage"
-                },
-                "accessTier": "Hot"
-            },
-            "resources": [
-                {
-                    "type": "Microsoft.Storage/storageAccounts/encryptionScopes",
-                    "apiVersion": "2020-08-01-preview",
-                    "name": "[concat(variables('storageAccountName'), '/DataAtRest')]",
-                    "dependsOn": [
-                        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
-                    ],
-                    "properties": {
-                        "source": "Microsoft.Storage",
-                        "state": "Enabled"
-                    }
-                },
-                {
-                    "type": "Microsoft.Storage/storageAccounts/blobServices",
-                    "apiVersion": "2020-08-01-preview",
-                    "name": "[concat(variables('storageAccountName'), '/default')]",
-                    "dependsOn": [
-                        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
-                    ],
-                    "sku": {
-                        "name": "Standard_RAGRS",
-                        "tier": "Standard"
-                    },
-                    "properties": {
-                        "cors": {
-                            "corsRules": []
-                        },
-                        "deleteRetentionPolicy": {
-                            "enabled": false
-                        }
-                    },
-                    "resources": [
-                        {
-                            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
-                            "apiVersion": "2020-08-01-preview",
-                            "name": "[concat(variables('storageAccountName'), '/default/', variables('applicationConfigBucket'))]",
-                            "dependsOn": [
-                                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', variables('storageAccountName'), 'default')]",
-                                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
-                            ],
-                            "properties": {
-                                "defaultEncryptionScope": "$account-encryption-key",
-                                "denyEncryptionScopeOverride": false,
-                                "publicAccess": "None"
-                            }
-                        },
-
-                        {
-                            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
-                            "apiVersion": "2020-08-01-preview",
-                            "name": "[concat(variables('storageAccountName'), '/default/', variables('encryptedBucket'))]",
-                            "dependsOn": [
-                                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', variables('storageAccountName'), 'default')]",
-                                "[resourceId('Microsoft.Storage/storageAccounts/encryptionScopes', variables('storageAccountName'), 'DataAtRest')]",
-                                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
-                            ],
-                            "properties": {
-                                "defaultEncryptionScope": "DataAtRest",
-                                "denyEncryptionScopeOverride": true,
-                                "publicAccess": "None"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "name": "[concat(variables('storageAccountName'), '/default')]",
-                    "type": "Microsoft.Storage/storageAccounts/managementPolicies",
-                    "apiVersion": "2020-08-01-preview",
-                    "dependsOn": [
-                        "[resourceId('Microsoft.Storage/storageAccounts/blobServices/containers', variables('storageAccountName'), 'default', variables('encryptedBucket'))]",
-                        "[resourceId('Microsoft.Storage/storageAccounts/blobServices', variables('storageAccountName'), 'default')]",
-                        "[resourceId('Microsoft.Storage/storageAccounts/encryptionScopes', variables('storageAccountName'), 'DataAtRest')]",
-                        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
-                    ],
-                    "properties": {
-                        "policy": {
-                            "rules": [
-                                {
-                                    "enabled": true,
-                                    "name": "lifecyclepolicy",
-                                    "type": "Lifecycle",
-                                    "definition": {
-                                        "actions": {
-                                            "baseBlob": {
-                                                "delete": {
-                                                    "daysAfterModificationGreaterThan": 30
-                                                }
-                                            }
-                                        },
-                                        "filters": {
-                                            "blobTypes": [
-                                                "blockBlob"
-                                            ],
-                                            "prefixMatch": [
-                                                "[concat(variables('encryptedBucket'), '/etl-actions')]",
-                                                "[concat(variables('encryptedBucket'), '/etl-process')]"
-                                            ]
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
             ]
         },
         {
