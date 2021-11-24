@@ -1198,7 +1198,7 @@
                     "virtualNetworkRules": [
                         {
                           "action": "Allow",
-                          "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('privateEndpointSubnetName'))]"
+                          "id": "/subscriptions/6892e10d-5248-4c43-836e-87e2052ff34d/resourceGroups/DevonaldTest2/providers/Microsoft.Network/virtualNetworks/VNet1/subnets/snet-func"
                         }
                     ],
                     "ipRules": [],
