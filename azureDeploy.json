@@ -1014,8 +1014,8 @@
             "name": "[variables('serviceBusName')]",
             "location": "[variables('location')]",
             "sku": {
-                "name": "Standard",
-                "tier": "Standard"
+                "name": "Premium",
+                "tier": "Premium"
             },
             "properties": {
                 "zoneRedundant": false
