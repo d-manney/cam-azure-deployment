@@ -125,7 +125,7 @@
         "storageAccountName": "[concat('strg',variables('commonId'))]",
         "applicationConfigBucket": "[concat(variables('resourcesNamespace'), '-application-config')]",
         "encryptedBucket": "[concat(variables('resourcesNamespace'), '-encrypted-bucket')]",
-        "mySqlServerName": "[concat('mysql-', variables('resourcesNamespace'))]",
+        "mySqlServerName": "[concat('mysql-', variables('resourcesNamespace'), uniqueString(resourceGroup().id))]",
         "cosmosName": "[concat('cosmos-', variables('resourcesNamespace'))]",
         "serviceBusName": "[concat('servicebus-', variables('resourcesNamespace'))]",
         "cosmosTenantdb": "[concat(variables('resourcesNamespace'),'-contentsync-tenant')]",
@@ -387,7 +387,7 @@
                   "properties": {
                     "privateLinkServiceId": "[resourceId('Microsoft.Sql/servers',parameters('InstanceUniqueName'))]",
                     "groupIds": [
-                      "[parameters('InstanceUniqueName')]"
+                      "[concat('mysql-', variables('resourcesNamespace'))]"
                     ]
                   }
                 }
