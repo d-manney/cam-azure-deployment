@@ -374,8 +374,7 @@
             "name": "file-endpoint",
             "location": "[parameters('location')]",
             "dependsOn": [
-              "[parameters('vnetName')]",
-              "[parameters('InstanceUniqueName')]"
+              "[parameters('vnetName')]"
             ],
             "properties": {
               "subnet": {
