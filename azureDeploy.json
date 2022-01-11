@@ -369,6 +369,32 @@
             ]
         },
         {
+            "type": "Microsoft.Network/privateEndpoints",
+            "apiVersion": "2020-06-01",
+            "name": "file-endpoint",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+              "[parameters('vnetName')]",
+              "[parameters('InstanceUniqueName')]"
+            ],
+            "properties": {
+              "subnet": {
+                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnet1Name'))]"
+              },
+              "privateLinkServiceConnections": [
+                {
+                  "name": "file-endpoint",
+                  "properties": {
+                    "privateLinkServiceId": "[resourceId('Microsoft.DBforMySQL/servers',variables('mySqlServerName'))]",
+                    "groupIds": [
+                      "[concat('mysql-', variables('resourcesNamespace'))]"
+                    ]
+                  }
+                }
+              ]
+            }
+        },
+        {
             "condition": "[variables('isETL')]",
             "type": "Microsoft.DBforMySQL/servers",
             "apiVersion": "2017-12-01",
