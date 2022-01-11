@@ -3740,7 +3740,12 @@
                 {
                   "name": "[parameters('subnet2Name')]",
                   "properties": {
-                    "addressPrefix": "[parameters('subnet2Prefix')]"
+                    "addressPrefix": "[parameters('subnet2Prefix')]",
+                    "serviceEndpoints": [
+                        {
+                           "service": "Microsoft.Storage"
+                        }
+                     ]
                   }
                 }
               ]
