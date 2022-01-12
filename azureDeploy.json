@@ -374,7 +374,8 @@
             "name": "file-endpoint",
             "location": "[parameters('location')]",
             "dependsOn": [
-              "[parameters('vnetName')]"
+              "[parameters('vnetName')]",
+              "[resourceId('Microsoft.DBforMySQL/servers',variables('mySqlServerName'))]"
             ],
             "properties": {
               "subnet": {
