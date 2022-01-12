@@ -386,7 +386,7 @@
                   "properties": {
                     "privateLinkServiceId": "[resourceId('Microsoft.DBforMySQL/servers',variables('mySqlServerName'))]",
                     "groupIds": [
-                      "sqlServer"
+                      "mysql"
                     ]
                   }
                 }
