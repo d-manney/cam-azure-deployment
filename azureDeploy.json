@@ -3759,13 +3759,15 @@
                 {
                   "name": "[parameters('subnet1Name')]",
                   "properties": {
-                    "addressPrefix": "[parameters('subnet1Prefix')]"
+                    "addressPrefix": "[parameters('subnet1Prefix')]",
+                    "privateEndpointNetworkPolicies": "Disabled"
                   }
                 },
                 {
                   "name": "[parameters('subnet2Name')]",
                   "properties": {
                     "addressPrefix": "[parameters('subnet2Prefix')]",
+                    "privateEndpointNetworkPolicies": "Disabled",
                     "serviceEndpoints": [
                         {
                            "service": "Microsoft.Storage"
