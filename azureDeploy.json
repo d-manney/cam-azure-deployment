@@ -402,7 +402,7 @@
             "location": "[variables('location')]",
             "sku": {
                 "name": "B_Gen5_1",
-                "tier": "Basic",
+                "tier": "GeneralPurpose",
                 "family": "Gen5",
                 "capacity": 1
             },
