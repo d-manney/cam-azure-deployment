@@ -374,21 +374,26 @@
             "name": "file-endpoint",
             "location": "[parameters('location')]",
             "dependsOn": [
-              "[parameters('vnetName')]",
-              "[resourceId('Microsoft.DBforMySQL/servers',variables('mySqlServerName'))]"
+              "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
+              "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnet2Name'))]"
             ],
             "properties": {
               "subnet": {
-                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnet1Name'))]"
+                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnet2Name'))]"
               },
               "privateLinkServiceConnections": [
                 {
                   "name": "file-endpoint",
                   "properties": {
-                    "privateLinkServiceId": "[resourceId('Microsoft.DBforMySQL/servers',variables('mySqlServerName'))]",
+                    "privateLinkServiceId": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
                     "groupIds": [
-                      "mysqlServer"
-                    ]
+                      "file"
+                    ],
+                    "privateLinkServiceConnectionState": {
+                        "status": "Approved",
+                        "description": "Auto-Approved",
+                        "actionsRequired": "None"
+                    }
                   }
                 }
               ]
