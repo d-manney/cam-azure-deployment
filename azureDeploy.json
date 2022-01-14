@@ -3799,7 +3799,8 @@
             "name": "[concat(variables('serviceBusName'), '/namespaceNetworkRuleSet')]",
             "type": "Microsoft.ServiceBus/namespaces/networkruleset",
             "dependsOn": [
-              "[resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName'))]"
+              "[resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName'))]",
+              "[resourceId('Microsoft.Network/privateEndpoints', 'sb-endpoint')]"
             ],
             "properties": {
               "virtualNetworkRules": 
