@@ -3878,6 +3878,36 @@
                 }
               ]
             }
+        },
+        {
+            "type": "Microsoft.Network/privateEndpoints",
+            "apiVersion": "2020-06-01",
+            "name": "sb-endpoint",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+              "[resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName'))]"
+            ],
+            "properties": {
+              "subnet": {
+                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnet2Name'))]"
+              },
+              "privateLinkServiceConnections": [
+                {
+                  "name": "sb-endpoint",
+                  "properties": {
+                    "privateLinkServiceId": "[resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName'))]",
+                    "groupIds": [
+                      "namespace"
+                    ],
+                    "privateLinkServiceConnectionState": {
+                        "status": "Approved",
+                        "description": "Auto-Approved",
+                        "actionsRequired": "None"
+                    }
+                  }
+                }
+              ]
+            }
         }
     ],
     "outputs": {
