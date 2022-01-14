@@ -3759,6 +3759,9 @@
             "type": "Microsoft.Network/virtualNetworks",
             "apiVersion": "2020-06-01",
             "name": "[parameters('vnetName')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+            ],
             "location": "[parameters('location')]",
             "properties": {
               "addressSpace": {
@@ -3796,11 +3799,12 @@
         },
         {
             "apiVersion": "2018-01-01-preview",
-            "name": "[concat(variables('serviceBusName'), '/namespaceNetworkRuleSet')]",
+            "name": "[concat(variables('serviceBusName'), '/default')]",
             "type": "Microsoft.ServiceBus/namespaces/networkruleset",
             "dependsOn": [
               "[resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName'))]",
-              "[resourceId('Microsoft.Network/privateEndpoints', 'sb-endpoint')]"
+              "[resourceId('Microsoft.Network/privateEndpoints', 'sb-endpoint')]",
+              "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
             ],
             "properties": {
               "virtualNetworkRules": 
