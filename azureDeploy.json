@@ -1018,7 +1018,18 @@
                 "tier": "Premium"
             },
             "properties": {
-                "zoneRedundant": false
+                "zoneRedundant": false,
+                "networkAcls": {
+                    "bypass": "AzureServices",
+                    "virtualNetworkRules": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]",
+                            "action": "Allow"
+
+                        }
+                    ],
+                    "defaultAction": "Deny"
+                    
             },
             "resources": [
                 {
