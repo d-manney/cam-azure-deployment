@@ -1020,8 +1020,7 @@
             "properties": {
                 "zoneRedundant": false,
                 "networkAcls": {
-                    "bypass": "AzureServices",
-                    "defaultAction": "Deny"
+                    "bypass": "AzureServices"
                 }    
             },
             "resources": [
