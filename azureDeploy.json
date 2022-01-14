@@ -3796,10 +3796,10 @@
         },
         {
             "apiVersion": "2018-01-01-preview",
-            "name": "namespaceNetworkRuleSetName",
+            "name": "namespaceNetworkRuleSet",
             "type": "Microsoft.ServiceBus/namespaces/networkruleset",
             "dependsOn": [
-              "[resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName'))]]"
+              "[resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName'))]"
             ],
             "properties": {
               "virtualNetworkRules": 
