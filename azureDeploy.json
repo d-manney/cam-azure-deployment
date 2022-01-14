@@ -1018,10 +1018,7 @@
                 "tier": "Premium"
             },
             "properties": {
-                "zoneRedundant": false,
-                "networkAcls": {
-                    "bypass": "AzureServices"
-                }    
+                "zoneRedundant": false
             },
             "resources": [
                 {
