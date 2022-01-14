@@ -1021,13 +1021,6 @@
                 "zoneRedundant": false,
                 "networkAcls": {
                     "bypass": "AzureServices",
-                    "virtualNetworkRules": [
-                        {
-                            "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]",
-                            "action": "Allow"
-
-                        }
-                    ],
                     "defaultAction": "Deny"
                 }    
             },
