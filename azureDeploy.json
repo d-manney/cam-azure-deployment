@@ -3832,7 +3832,16 @@
             "name": "file-endpoint",
             "location": "[parameters('location')]",
             "dependsOn": [
-              "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+              "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
+              "[resourceId('Microsoft.Web/sites', variables('etlApiAppName'))]",
+              "[resourceId('Microsoft.Web/sites', variables('etlRenewalAppName'))]",
+              "[resourceId('Microsoft.Web/sites', variables('etlMappingAppName'))]",
+              "[resourceId('Microsoft.Web/sites', variables('etlProcessAppName'))]",
+              "[resourceId('Microsoft.Web/sites', variables('etlActionAppName'))]",
+              "[resourceId('Microsoft.Web/sites', variables('configAppName'))]",
+              "[resourceId('Microsoft.Web/sites', variables('csApiAppName'))]",
+              "[resourceId('Microsoft.Web/sites', variables('csProcessAppName'))]",
+              "[resourceId('Microsoft.Web/sites', variables('csRetryAppName'))]"
             ],
             "properties": {
               "subnet": {
@@ -3862,7 +3871,16 @@
             "name": "blob-endpoint",
             "location": "[parameters('location')]",
             "dependsOn": [
-              "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
+                "[resourceId('Microsoft.Web/sites', variables('etlApiAppName'))]",
+                "[resourceId('Microsoft.Web/sites', variables('etlRenewalAppName'))]",
+                "[resourceId('Microsoft.Web/sites', variables('etlMappingAppName'))]",
+                "[resourceId('Microsoft.Web/sites', variables('etlProcessAppName'))]",
+                "[resourceId('Microsoft.Web/sites', variables('etlActionAppName'))]",
+                "[resourceId('Microsoft.Web/sites', variables('configAppName'))]",
+                "[resourceId('Microsoft.Web/sites', variables('csApiAppName'))]",
+                "[resourceId('Microsoft.Web/sites', variables('csProcessAppName'))]",
+                "[resourceId('Microsoft.Web/sites', variables('csRetryAppName'))]"
             ],
             "properties": {
               "subnet": {
@@ -3892,7 +3910,16 @@
             "name": "table-endpoint",
             "location": "[parameters('location')]",
             "dependsOn": [
-              "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
+                "[resourceId('Microsoft.Web/sites', variables('etlApiAppName'))]",
+                "[resourceId('Microsoft.Web/sites', variables('etlRenewalAppName'))]",
+                "[resourceId('Microsoft.Web/sites', variables('etlMappingAppName'))]",
+                "[resourceId('Microsoft.Web/sites', variables('etlProcessAppName'))]",
+                "[resourceId('Microsoft.Web/sites', variables('etlActionAppName'))]",
+                "[resourceId('Microsoft.Web/sites', variables('configAppName'))]",
+                "[resourceId('Microsoft.Web/sites', variables('csApiAppName'))]",
+                "[resourceId('Microsoft.Web/sites', variables('csProcessAppName'))]",
+                "[resourceId('Microsoft.Web/sites', variables('csRetryAppName'))]"
             ],
             "properties": {
               "subnet": {
@@ -3922,7 +3949,16 @@
             "name": "sb-endpoint",
             "location": "[parameters('location')]",
             "dependsOn": [
-              "[resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
+                "[resourceId('Microsoft.Web/sites', variables('etlApiAppName'))]",
+                "[resourceId('Microsoft.Web/sites', variables('etlRenewalAppName'))]",
+                "[resourceId('Microsoft.Web/sites', variables('etlMappingAppName'))]",
+                "[resourceId('Microsoft.Web/sites', variables('etlProcessAppName'))]",
+                "[resourceId('Microsoft.Web/sites', variables('etlActionAppName'))]",
+                "[resourceId('Microsoft.Web/sites', variables('configAppName'))]",
+                "[resourceId('Microsoft.Web/sites', variables('csApiAppName'))]",
+                "[resourceId('Microsoft.Web/sites', variables('csProcessAppName'))]",
+                "[resourceId('Microsoft.Web/sites', variables('csRetryAppName'))]"
             ],
             "properties": {
               "subnet": {
