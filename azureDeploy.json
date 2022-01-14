@@ -3771,7 +3771,12 @@
                   "name": "[parameters('subnet1Name')]",
                   "properties": {
                     "addressPrefix": "[parameters('subnet1Prefix')]",
-                    "privateEndpointNetworkPolicies": "Disabled"
+                    "privateEndpointNetworkPolicies": "Disabled",
+                    "serviceEndpoints": [
+                        {
+                           "service": "Microsoft.ServiceBus"
+                        }
+                     ]
                   }
                 },
                 {
@@ -3787,6 +3792,33 @@
                   }
                 }
               ]
+            }
+        },
+        {
+            "apiVersion": "2018-01-01-preview",
+            "name": "[variables('namespaceNetworkRuleSetName')]",
+            "type": "Microsoft.ServiceBus/namespaces/networkruleset",
+            "dependsOn": [
+              "[resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName'))]]"
+            ],
+            "properties": {
+              "virtualNetworkRules": 
+              [
+                {
+                  "subnet": {
+                    "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnet1Name'))]"
+                  },
+                  "ignoreMissingVnetServiceEndpoint": false
+                }
+              ],
+              "ipRules":[
+                  {
+                    "action": "Allow",
+                    "ipMask": "string"
+                  }
+                ],
+              "trustedServiceAccessEnabled": false,          
+              "defaultAction": "Deny"
             }
         },
         {
