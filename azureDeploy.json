@@ -369,37 +369,6 @@
             ]
         },
         {
-            "type": "Microsoft.Network/privateEndpoints",
-            "apiVersion": "2020-06-01",
-            "name": "file-endpoint",
-            "location": "[parameters('location')]",
-            "dependsOn": [
-              "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
-              "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnet2Name'))]"
-            ],
-            "properties": {
-              "subnet": {
-                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnet2Name'))]"
-              },
-              "privateLinkServiceConnections": [
-                {
-                  "name": "file-endpoint",
-                  "properties": {
-                    "privateLinkServiceId": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
-                    "groupIds": [
-                      "file"
-                    ],
-                    "privateLinkServiceConnectionState": {
-                        "status": "Approved",
-                        "description": "Auto-Approved",
-                        "actionsRequired": "None"
-                    }
-                  }
-                }
-              ]
-            }
-        },
-        {
             "condition": "[variables('isETL')]",
             "type": "Microsoft.DBforMySQL/servers",
             "apiVersion": "2017-12-01",
@@ -3815,6 +3784,37 @@
                            "service": "Microsoft.Storage"
                         }
                      ]
+                  }
+                }
+              ]
+            }
+        },
+        {
+            "type": "Microsoft.Network/privateEndpoints",
+            "apiVersion": "2020-06-01",
+            "name": "file-endpoint",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+              "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
+              "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnet2Name'))]"
+            ],
+            "properties": {
+              "subnet": {
+                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnet2Name'))]"
+              },
+              "privateLinkServiceConnections": [
+                {
+                  "name": "file-endpoint",
+                  "properties": {
+                    "privateLinkServiceId": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
+                    "groupIds": [
+                      "file"
+                    ],
+                    "privateLinkServiceConnectionState": {
+                        "status": "Approved",
+                        "description": "Auto-Approved",
+                        "actionsRequired": "None"
+                    }
                   }
                 }
               ]
