@@ -3819,7 +3819,7 @@
               "ipRules":[
                   {
                     "action": "Allow",
-                    "ipMask": "string"
+                    "ipMask": "[parameters('subnet1Prefix')]"
                   }
                 ],
               "trustedServiceAccessEnabled": false,          
