@@ -375,10 +375,10 @@
             "name": "[variables('mySqlServerName')]",
             "location": "[variables('location')]",
             "sku": {
-                "name": "GP_Gen5_2",
-                "tier": "GeneralPurpose",
+                "name": "B_Gen5_1",
+                "tier": "Basic",
                 "family": "Gen5",
-                "capacity": 2
+                "capacity": 1
             },
             "properties": {
                 "createMode": "Default",
