@@ -2024,6 +2024,27 @@
                     ]
                 }
             ]
+        },
+        {
+            "type": "Microsoft.Web/serverfarms",
+            "apiVersion": "2018-02-01",
+            "name": "[variables('webServerName')]",
+            "location": "[variables('location')]",
+            "sku": {
+                "name": "EP1",
+                "tier": "ElasticPremium"
+            },
+            "kind": "functionapp",
+            "properties": {
+                "perSiteScaling": false,
+                "maximumElasticWorkerCount": 1,
+                "isSpot": false,
+                "reserved": false,
+                "isXenon": false,
+                "hyperV": false,
+                "targetWorkerCount": 0,
+                "targetWorkerSizeId": 0
+            }
         }
     ],
     "outputs": {
