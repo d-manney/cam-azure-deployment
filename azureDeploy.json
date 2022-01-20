@@ -1417,7 +1417,9 @@
                         "containerSize": 1536,
                         "dailyMemoryTimeQuota": 0,
                         "httpsOnly": false,
-                        "redundancyMode": "None"
+                        "redundancyMode": "None",
+                        "virtualNetworkSubnetId": "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'), parameters('subnet1Name'))]",
+                        "keyVaultReferenceIdentity": "SystemAssigned"
                     },
                     "resources": [
                         {
