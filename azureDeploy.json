@@ -1289,6 +1289,48 @@
             }
         },
         {
+            "type": "Microsoft.Network/virtualNetworks",
+            "apiVersion": "2020-06-01",
+            "name": "[parameters('vnetName')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+            ],
+            "location": "[parameters('location')]",
+            "properties": {
+              "addressSpace": {
+                "addressPrefixes": [
+                  "[parameters('vnetAddressPrefix')]"
+                ]
+              },
+              "subnets": [
+                {
+                  "name": "[parameters('subnet1Name')]",
+                  "properties": {
+                    "addressPrefix": "[parameters('subnet1Prefix')]",
+                    "privateEndpointNetworkPolicies": "Disabled",
+                    "serviceEndpoints": [
+                        {
+                           "service": "Microsoft.ServiceBus"
+                        }
+                     ]
+                  }
+                },
+                {
+                  "name": "[parameters('subnet2Name')]",
+                  "properties": {
+                    "addressPrefix": "[parameters('subnet2Prefix')]",
+                    "privateEndpointNetworkPolicies": "Disabled",
+                    "serviceEndpoints": [
+                        {
+                           "service": "Microsoft.Storage"
+                        }
+                     ]
+                  }
+                }
+              ]
+            }
+        },
+        {
             "condition": "[variables('isETL')]",
             "type": "Microsoft.Insights/components",
             "apiVersion": "2020-02-02-preview",
@@ -1305,6 +1347,7 @@
                 {
                     "condition": "[variables('isETL')]",
                     "type": "Microsoft.Web/sites",
+                    "apiVersion": "2018-11-01",
                     "name": "[variables('etlApiAppName')]",
                     "location": "[variables('location')]",
                     "dependsOn": [
@@ -3712,48 +3755,7 @@
                 "principalType": "ServicePrincipal"
             }
         },
-        {
-            "type": "Microsoft.Network/virtualNetworks",
-            "apiVersion": "2020-06-01",
-            "name": "[parameters('vnetName')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
-            ],
-            "location": "[parameters('location')]",
-            "properties": {
-              "addressSpace": {
-                "addressPrefixes": [
-                  "[parameters('vnetAddressPrefix')]"
-                ]
-              },
-              "subnets": [
-                {
-                  "name": "[parameters('subnet1Name')]",
-                  "properties": {
-                    "addressPrefix": "[parameters('subnet1Prefix')]",
-                    "privateEndpointNetworkPolicies": "Disabled",
-                    "serviceEndpoints": [
-                        {
-                           "service": "Microsoft.ServiceBus"
-                        }
-                     ]
-                  }
-                },
-                {
-                  "name": "[parameters('subnet2Name')]",
-                  "properties": {
-                    "addressPrefix": "[parameters('subnet2Prefix')]",
-                    "privateEndpointNetworkPolicies": "Disabled",
-                    "serviceEndpoints": [
-                        {
-                           "service": "Microsoft.Storage"
-                        }
-                     ]
-                  }
-                }
-              ]
-            }
-        },
+        
         {
             "apiVersion": "2018-01-01-preview",
             "name": "[concat(variables('serviceBusName'), '/default')]",
