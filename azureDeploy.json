@@ -1289,48 +1289,6 @@
             }
         },
         {
-            "type": "Microsoft.Network/virtualNetworks",
-            "apiVersion": "2020-06-01",
-            "name": "[parameters('vnetName')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
-            ],
-            "location": "[parameters('location')]",
-            "properties": {
-              "addressSpace": {
-                "addressPrefixes": [
-                  "[parameters('vnetAddressPrefix')]"
-                ]
-              },
-              "subnets": [
-                {
-                  "name": "[parameters('subnet1Name')]",
-                  "properties": {
-                    "addressPrefix": "[parameters('subnet1Prefix')]",
-                    "privateEndpointNetworkPolicies": "Disabled",
-                    "serviceEndpoints": [
-                        {
-                           "service": "Microsoft.ServiceBus"
-                        }
-                     ]
-                  }
-                },
-                {
-                  "name": "[parameters('subnet2Name')]",
-                  "properties": {
-                    "addressPrefix": "[parameters('subnet2Prefix')]",
-                    "privateEndpointNetworkPolicies": "Disabled",
-                    "serviceEndpoints": [
-                        {
-                           "service": "Microsoft.Storage"
-                        }
-                     ]
-                  }
-                }
-              ]
-            }
-        },
-        {
             "condition": "[variables('isETL')]",
             "type": "Microsoft.Insights/components",
             "apiVersion": "2020-02-02-preview",
@@ -1352,8 +1310,7 @@
                     "location": "[variables('location')]",
                     "dependsOn": [
                         "[resourceId('Microsoft.Web/serverfarms', variables('webServerName'))]",
-                        "[resourceId('Microsoft.Insights/components', variables('etlApiAppInsightsName'))]",
-                        "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnet1Name'))]"
+                        "[resourceId('Microsoft.Insights/components', variables('etlApiAppInsightsName'))]"
                     ],
                     "kind": "functionapp",
                     "identity": {
@@ -3755,7 +3712,48 @@
                 "principalType": "ServicePrincipal"
             }
         },
-        
+        {
+            "type": "Microsoft.Network/virtualNetworks",
+            "apiVersion": "2020-06-01",
+            "name": "[parameters('vnetName')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+            ],
+            "location": "[parameters('location')]",
+            "properties": {
+              "addressSpace": {
+                "addressPrefixes": [
+                  "[parameters('vnetAddressPrefix')]"
+                ]
+              },
+              "subnets": [
+                {
+                  "name": "[parameters('subnet1Name')]",
+                  "properties": {
+                    "addressPrefix": "[parameters('subnet1Prefix')]",
+                    "privateEndpointNetworkPolicies": "Disabled",
+                    "serviceEndpoints": [
+                        {
+                           "service": "Microsoft.ServiceBus"
+                        }
+                     ]
+                  }
+                },
+                {
+                  "name": "[parameters('subnet2Name')]",
+                  "properties": {
+                    "addressPrefix": "[parameters('subnet2Prefix')]",
+                    "privateEndpointNetworkPolicies": "Disabled",
+                    "serviceEndpoints": [
+                        {
+                           "service": "Microsoft.Storage"
+                        }
+                     ]
+                  }
+                }
+              ]
+            }
+        },
         {
             "apiVersion": "2018-01-01-preview",
             "name": "[concat(variables('serviceBusName'), '/default')]",
