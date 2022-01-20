@@ -359,9 +359,7 @@
                         "dailyMemoryTimeQuota": 0,
                         "httpsOnly": false,
                         "redundancyMode": "None"
-                    },
-                    "resources": [
-                    ]
+                    }
                 }
             ]
         },
@@ -642,35 +640,8 @@
                         "dailyMemoryTimeQuota": 0,
                         "httpsOnly": false,
                         "redundancyMode": "None"
-                    },
-                    "resources": [
-                        {
-                            
-                        },
-                        {
-                            "condition": "[variables('isETL')]",
-                            "type": "Microsoft.Web/sites/providers/diagnosticsettings",
-                            "apiVersion": "2017-05-01-preview",
-                            "location": "[variables('location')]",
-                            "name": "[concat(variables('etlApiAppName'), '/Microsoft.Insights/function-logs')]",
-                            "dependsOn": [
-                                "[resourceId('Microsoft.Web/sites', variables('etlApiAppName'))]"
-                            ],
-                            "properties": {
-                                "storageAccountId": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
-                                "logs": [
-                                    {
-                                        "category": "FunctionAppLogs",
-                                        "enabled": true,
-                                        "retentionPolicy": {
-                                            "enabled": true,
-                                            "days": 7
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-                    ]
+                    }
+                    
                 }
             ]
         },
@@ -821,35 +792,7 @@
                         "dailyMemoryTimeQuota": 0,
                         "httpsOnly": false,
                         "redundancyMode": "None"
-                    },
-                    "resources": [
-                        {
-                            
-                        },
-                        {
-                            "condition": "[variables('isETL')]",
-                            "type": "Microsoft.Web/sites/providers/diagnosticsettings",
-                            "apiVersion": "2017-05-01-preview",
-                            "location": "[variables('location')]",
-                            "name": "[concat(variables('etlRenewalAppName'), '/Microsoft.Insights/function-logs')]",
-                            "dependsOn": [
-                                "[resourceId('Microsoft.Web/sites', variables('etlRenewalAppName'))]"
-                            ],
-                            "properties": {
-                                "storageAccountId": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
-                                "logs": [
-                                    {
-                                        "category": "FunctionAppLogs",
-                                        "enabled": true,
-                                        "retentionPolicy": {
-                                            "enabled": true,
-                                            "days": 7
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-                    ]
+                    }
                 }
             ]
         },
@@ -1000,35 +943,7 @@
                         "dailyMemoryTimeQuota": 0,
                         "httpsOnly": false,
                         "redundancyMode": "None"
-                    },
-                    "resources": [
-                        {
-                            
-                        },
-                        {
-                            "condition": "[variables('isETL')]",
-                            "type": "Microsoft.Web/sites/providers/diagnosticsettings",
-                            "apiVersion": "2017-05-01-preview",
-                            "location": "[variables('location')]",
-                            "name": "[concat(variables('etlMappingAppName'), '/Microsoft.Insights/function-logs')]",
-                            "dependsOn": [
-                                "[resourceId('Microsoft.Web/sites', variables('etlMappingAppName'))]"
-                            ],
-                            "properties": {
-                                "storageAccountId": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
-                                "logs": [
-                                    {
-                                        "category": "FunctionAppLogs",
-                                        "enabled": true,
-                                        "retentionPolicy": {
-                                            "enabled": true,
-                                            "days": 7
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-                    ]
+                    }
                 }
             ]
         },
@@ -1187,35 +1102,7 @@
                         "dailyMemoryTimeQuota": 0,
                         "httpsOnly": false,
                         "redundancyMode": "None"
-                    },
-                    "resources": [
-                        {
-                            
-                        },
-                        {
-                            "condition": "[variables('isETL')]",
-                            "type": "Microsoft.Web/sites/providers/diagnosticsettings",
-                            "apiVersion": "2017-05-01-preview",
-                            "location": "[variables('location')]",
-                            "name": "[concat(variables('etlProcessAppName'), '/Microsoft.Insights/function-logs')]",
-                            "dependsOn": [
-                                "[resourceId('Microsoft.Web/sites', variables('etlProcessAppName'))]"
-                            ],
-                            "properties": {
-                                "storageAccountId": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
-                                "logs": [
-                                    {
-                                        "category": "FunctionAppLogs",
-                                        "enabled": true,
-                                        "retentionPolicy": {
-                                            "enabled": true,
-                                            "days": 7
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-                    ]
+                    }
                 }
             ]
         },
@@ -1362,35 +1249,7 @@
                         "dailyMemoryTimeQuota": 0,
                         "httpsOnly": false,
                         "redundancyMode": "None"
-                    },
-                    "resources": [
-                        {
-                            
-                        },
-                        {
-                            "condition": "[variables('isETL')]",
-                            "type": "Microsoft.Web/sites/providers/diagnosticsettings",
-                            "apiVersion": "2017-05-01-preview",
-                            "location": "[variables('location')]",
-                            "name": "[concat(variables('etlActionAppName'), '/Microsoft.Insights/function-logs')]",
-                            "dependsOn": [
-                                "[resourceId('Microsoft.Web/sites', variables('etlActionAppName'))]"
-                            ],
-                            "properties": {
-                                "storageAccountId": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
-                                "logs": [
-                                    {
-                                        "category": "FunctionAppLogs",
-                                        "enabled": true,
-                                        "retentionPolicy": {
-                                            "enabled": true,
-                                            "days": 7
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-                    ]
+                    }
                 }
             ]
         },
@@ -1528,35 +1387,7 @@
                         "dailyMemoryTimeQuota": 0,
                         "httpsOnly": false,
                         "redundancyMode": "None"
-                    },
-                    "resources": [
-                        {
-                            
-                        },
-                        {
-                            "condition": "[variables('isCS')]",
-                            "type": "Microsoft.Web/sites/providers/diagnosticsettings",
-                            "apiVersion": "2017-05-01-preview",
-                            "location": "[variables('location')]",
-                            "name": "[concat(variables('csApiAppName'), '/Microsoft.Insights/function-logs')]",
-                            "dependsOn": [
-                                "[resourceId('Microsoft.Web/sites', variables('csApiAppName'))]"
-                            ],
-                            "properties": {
-                                "storageAccountId": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
-                                "logs": [
-                                    {
-                                        "category": "FunctionAppLogs",
-                                        "enabled": true,
-                                        "retentionPolicy": {
-                                            "enabled": true,
-                                            "days": 7
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-                    ]
+                    }
                 }
             ]
         },
@@ -1715,35 +1546,7 @@
                         "dailyMemoryTimeQuota": 0,
                         "httpsOnly": false,
                         "redundancyMode": "None"
-                    },
-                    "resources": [
-                        {
-                            
-                        },
-                        {
-                            "condition": "[variables('isCS')]",
-                            "type": "Microsoft.Web/sites/providers/diagnosticsettings",
-                            "apiVersion": "2017-05-01-preview",
-                            "location": "[variables('location')]",
-                            "name": "[concat(variables('csProcessAppName'), '/Microsoft.Insights/function-logs')]",
-                            "dependsOn": [
-                                "[resourceId('Microsoft.Web/sites', variables('csProcessAppName'))]"
-                            ],
-                            "properties": {
-                                "storageAccountId": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
-                                "logs": [
-                                    {
-                                        "category": "FunctionAppLogs",
-                                        "enabled": true,
-                                        "retentionPolicy": {
-                                            "enabled": true,
-                                            "days": 7
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-                    ]
+                    }
                 }
             ]
         },
@@ -1893,35 +1696,7 @@
                         "dailyMemoryTimeQuota": 0,
                         "httpsOnly": false,
                         "redundancyMode": "None"
-                    },
-                    "resources": [
-                        {
-                            
-                        },
-                        {
-                            "condition": "[variables('isCS')]",
-                            "type": "Microsoft.Web/sites/providers/diagnosticsettings",
-                            "apiVersion": "2017-05-01-preview",
-                            "location": "[variables('location')]",
-                            "name": "[concat(variables('csRetryAppName'), '/Microsoft.Insights/function-logs')]",
-                            "dependsOn": [
-                                "[resourceId('Microsoft.Web/sites', variables('csRetryAppName'))]"
-                            ],
-                            "properties": {
-                                "storageAccountId": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
-                                "logs": [
-                                    {
-                                        "category": "FunctionAppLogs",
-                                        "enabled": true,
-                                        "retentionPolicy": {
-                                            "enabled": true,
-                                            "days": 7
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-                    ]
+                    }
                 }
             ]
         },
