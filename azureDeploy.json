@@ -1418,7 +1418,7 @@
                         "dailyMemoryTimeQuota": 0,
                         "httpsOnly": false,
                         "redundancyMode": "None",
-                        "virtualNetworkSubnetId": "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'), parameters('subnet1Name'))]",
+                        "virtualNetworkSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets',  parameters('subnet1Name'))]",
                         "keyVaultReferenceIdentity": "SystemAssigned"
                     },
                     "resources": [
