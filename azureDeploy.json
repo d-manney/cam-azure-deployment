@@ -3731,6 +3731,14 @@
                   "name": "[parameters('subnet1Name')]",
                   "properties": {
                     "addressPrefix": "[parameters('subnet1Prefix')]",
+                    "delegations": [
+                        {
+                            "name": "delegation",
+                            "properties": {
+                                "serviceName": "Microsoft.Web/serverfarms"
+                            }
+                        }
+                    ],
                     "privateEndpointNetworkPolicies": "Disabled",
                     "serviceEndpoints": [
                         {
