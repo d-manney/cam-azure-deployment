@@ -1559,7 +1559,6 @@
                     "dependsOn": [
                         "[resourceId('Microsoft.Web/serverfarms', variables('webServerName'))]",
                         "[resourceId('Microsoft.Insights/components', variables('configAppInsightsName'))]",
-                        "[resourceId('Microsoft.DocumentDB/databaseAccounts', variables('cosmosName'))]",
                         "[resourceId('Microsoft.DBforMySQL/servers', variables('mySqlServerName'))]",
                         "[resourceId('Microsoft.ServiceBus/namespaces/queues', variables('serviceBusName'), variables('etlQueueName'))]",
                         "[resourceId('Microsoft.ServiceBus/namespaces/queues', variables('serviceBusName'), variables('csQueueName'))]"
