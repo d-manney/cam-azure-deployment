@@ -1292,6 +1292,143 @@
             "condition": "[variables('isETL')]",
             "type": "Microsoft.Insights/components",
             "apiVersion": "2020-02-02-preview",
+            "name": "[variables('etlApiAppInsightsName')]",
+            "location": "[variables('Location')]",
+            "kind": "web",
+            "properties": {
+                "Application_Type": "web",
+                "IngestionMode": "ApplicationInsights",
+                "publicNetworkAccessForIngestion": "Enabled",
+                "publicNetworkAccessForQuery": "Enabled"
+            },
+            "resources": [
+                {
+                    "condition": "[variables('isETL')]",
+                    "type": "Microsoft.Web/sites",
+                    "apiVersion": "2018-11-01",
+                    "name": "[variables('etlApiAppName')]",
+                    "location": "[variables('location')]",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Web/serverfarms', variables('webServerName'))]",
+                        "[resourceId('Microsoft.Insights/components', variables('etlApiAppInsightsName'))]"
+                    ],
+                    "kind": "functionapp",
+                    "identity": {
+                        "type": "SystemAssigned"
+                    },
+                    "properties": {
+                        "enabled": true,
+                        "hostNameSslStates": [
+                            {
+                                "name": "[concat(variables('etlApiAppName'), '.azurewebsites.net')]",
+                                "sslState": "Disabled",
+                                "hostType": "Standard"
+                            },
+                            {
+                                "name": "[concat(variables('etlApiAppName'), '.scm.azurewebsites.net')]",
+                                "sslState": "Disabled",
+                                "hostType": "Repository"
+                            }
+                        ],
+                        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('webServerName'))]",
+                        "reserved": false,
+                        "isXenon": false,
+                        "hyperV": false,
+                        "siteConfig": {
+                            "appSettings": [
+                                {
+                                    "name": "application_group",
+                                    "value": "[variables('resourcesNamespace')]"
+                                },
+                                {
+                                    "name": "AzureWebJobsDashboard",
+                                    "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')),'2019-06-01').keys[0].value)]"
+                                },
+                                {
+                                    "name": "AzureWebJobsServiceBusConnection",
+                                    "value": "[concat('Endpoint=sb://', variables('serviceBusName'), '.servicebus.windows.net/;SharedAccessKeyName=', variables('authorizationRulesName') ,';SharedAccessKey=', listKeys(resourceId('Microsoft.ServiceBus/namespaces/AuthorizationRules', variables('serviceBusName'), variables('authorizationRulesName')), '2017-04-01').primaryKey)]"
+                                },
+                                {
+                                    "name": "AzureWebJobsStorage",
+                                    "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')),'2019-06-01').keys[0].value)]"
+                                },
+                                {
+                                    "name": "JAVA_OPTS",
+                                    "value": "-Dfile.encoding=UTF-8"
+                                },
+                                {
+                                    "name": "WEBSITE_USE_PLACEHOLDER",
+                                    "value": "0"
+                                },
+                                {
+                                    "name": "config_basepath",
+                                    "value": "[concat('az:', variables('applicationConfigBucket'))]"
+                                },
+                                {
+                                    "name": "cs_ddt_prefix",
+                                    "value": "[variables('resourcesNamespace')]"
+                                },
+                                {
+                                    "name": "FUNCTIONS_EXTENSION_VERSION",
+                                    "value": "~3"
+                                },
+                                {
+                                    "name": "FUNCTIONS_WORKER_JAVA_LOAD_APP_LIBS",
+                                    "value": "1"
+                                },
+                                {
+                                    "name": "FUNCTIONS_WORKER_RUNTIME",
+                                    "value": "java"
+                                },
+                                {
+                                    "name": "lambda_profile",
+                                    "value": "[parameters('EnvironmentStage')]"
+                                },
+                                {
+                                    "name": "storage_accountname",
+                                    "value": "[variables('storageAccountName')]"
+                                },
+                                {
+                                    "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
+                                    "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')),'2019-06-01').keys[0].value, ';EndpointSuffix=core.windows.net')]"
+                                },
+                                {
+                                    "name": "api_base_url",
+                                    "value": "[concat('https://', variables('etlApiAppName'), '.azurewebsites.net', variables('apiVersion'))]"
+                                },
+                                {
+                                    "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                                    "value": "[if(variables('isETL'), reference(resourceId('Microsoft.Insights/components', variables('etlApiAppInsightsName'))).InstrumentationKey, '')]"
+                                },
+                                {
+                                    "name": "service_id",
+                                    "value": "[variables('etlApiAppName')]"
+                                },
+                                {
+                                    "name": "service_name",
+                                    "value": "[variables('etlApiAppName')]"
+                                }
+                            ]
+                        },
+                        "scmSiteAlsoStopped": false,
+                        "clientAffinityEnabled": false,
+                        "clientCertEnabled": false,
+                        "hostNamesDisabled": false,
+                        "containerSize": 1536,
+                        "dailyMemoryTimeQuota": 0,
+                        "httpsOnly": false,
+                        "redundancyMode": "None",
+                        "virtualNetworkSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnet1Name'))]",
+                        "keyVaultReferenceIdentity": "SystemAssigned"
+                    },
+                    "resources": []
+                }
+            ]
+        },
+        {
+            "condition": "[variables('isETL')]",
+            "type": "Microsoft.Insights/components",
+            "apiVersion": "2020-02-02-preview",
             "name": "[variables('etlRenewalAppInsightsName')]",
             "location": "[variables('Location')]",
             "kind": "web",
