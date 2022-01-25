@@ -370,7 +370,8 @@
                         "containerSize": 1536,
                         "dailyMemoryTimeQuota": 0,
                         "httpsOnly": false,
-                        "redundancyMode": "None"
+                        "redundancyMode": "None",
+                        "functionsRuntimeScaleMonitoringEnabled": true
                     }
                 }
             ]
