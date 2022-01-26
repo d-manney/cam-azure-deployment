@@ -2,6 +2,13 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
      "parameters": {
+        "ServiceBusResourceId":{
+             "type": "string",
+            "minLength": 36,
+            "metadata": {
+                "description": "Prosperoware Tenant Id will be provided by Prosperoware. Make sure to get the key before starting the installation."
+            }
+        },
         "ProsperowareTenantId": {
             "type": "string",
             "minLength": 36,
@@ -126,7 +133,6 @@
         "csQueueName": "[concat(variables('resourcesNamespace'), '-job-process-v1')]",
         "etlRenewalTopicName": "[concat(variables('resourcesNamespace'), '-etl_renewal_worker_start')]",
         "etlMappingTopicName": "[concat(variables('resourcesNamespace'), '-etl_mapping_worker_start')]",
-        "reloadTopicName": "[concat(variables('resourcesNamespace'), '-systemauth_reload')]",
         "etlActionTopicName": "[concat(variables('resourcesNamespace'), '-etl_document_action')]",
         "webServerName": "[concat(variables('resourcesNamespace'), '-api-app-srvr')]",
         "etlApiAppName": "[concat(variables('resourcesNamespace'), '-etl-api')]",
@@ -150,204 +156,11 @@
         "csApiAppInsightsName": "[concat(variables('resourcesNamespace'), '-contentsync-api')]",
         "csProcessAppInsightsName": "[concat(variables('resourcesNamespace'), '-contentsync-process')]",
         "csRetryAppInsightsName": "[concat(variables('resourcesNamespace'), '-contentsync-retry')]",
-        "readerAndDataAccess": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', 'c12c1c16-33a1-487b-954d-41c89c60f349')]",
-        "strgKeyOperator": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', '81a9662b-bebf-436f-a333-f67b29880f12')]",
-        "owner": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', '8e3af657-a8ff-443c-a75c-2fe8c4bcb635')]",
-        "sbDataOwner": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', '090c5cfd-751d-490a-894a-3ce6f1109419')]",
-        "strgBlobDataOwner": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', 'b7e6dc6d-f1e8-4753-8033-0f276bb0955b')]",
-        "raEtlApiAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('etlApiAppName')), resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), variables('readerAndDataAccess'))]",
-        "raEtlRenewalAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('etlRenewalAppName')), resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), variables('readerAndDataAccess'))]",
-        "raEtlMappingAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('etlMappingAppName')), resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), variables('readerAndDataAccess'))]",
-        "raEtlProcessAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('etlProcessAppName')), resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), variables('readerAndDataAccess'))]",
-        "raEtlActionAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('etlActionAppName')), resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), variables('readerAndDataAccess'))]",
-        "raConfigAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('configAppName')), resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), variables('readerAndDataAccess'))]",
-        "raCsApiAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('csApiAppName')), resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), variables('readerAndDataAccess'))]",
-        "raCsProcessAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('csProcessAppName')), resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), variables('readerAndDataAccess'))]",
-        "raCsRetryAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('csRetryAppName')), resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), variables('readerAndDataAccess'))]",
-        "skEtlApiAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('etlApiAppName')), resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), variables('strgKeyOperator'))]",
-        "skEtlRenewalAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('etlRenewalAppName')), resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), variables('strgKeyOperator'))]",
-        "skEtlMappingAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('etlMappingAppName')), resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), variables('strgKeyOperator'))]",
-        "skEtlProcessAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('etlProcessAppName')), resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), variables('strgKeyOperator'))]",
-        "skEtlActionAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('etlActionAppName')), resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), variables('strgKeyOperator'))]",
-        "skConfigAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('configAppName')), resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), variables('strgKeyOperator'))]",
-        "skCsApiAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('csApiAppName')), resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), variables('strgKeyOperator'))]",
-        "skCsProcessAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('csProcessAppName')), resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), variables('strgKeyOperator'))]",
-        "skCsRetryAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('csRetryAppName')), resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), variables('strgKeyOperator'))]",
-        "sbEtlApiAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('etlApiAppName')), resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName')), variables('owner'))]",
-        "sbEtlRenewalAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('etlRenewalAppName')), resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName')), variables('owner'))]",
-        "sbEtlMappingAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('etlMappingAppName')), resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName')), variables('owner'))]",
-        "sbEtlProcessAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('etlProcessAppName')), resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName')), variables('owner'))]",
-        "sbEtlActionAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('etlActionAppName')), resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName')), variables('owner'))]",
-        "sbConfigAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('configAppName')), resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName')), variables('owner'))]",
-        "sbCsApiAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('csApiAppName')), resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName')), variables('owner'))]",
-        "sbCsProcessAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('csProcessAppName')), resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName')), variables('owner'))]",
-        "sbCsRetryAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('csRetryAppName')), resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName')), variables('owner'))]",
-        "sbDataOwnerEtlApiAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('etlApiAppName')), resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName')), variables('sbdataowner'))]",
-        "sbDataOwnerEtlRenewalAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('etlRenewalAppName')), resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName')), variables('sbdataowner'))]",
-        "sbDataOwnerEtlMappingAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('etlMappingAppName')), resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName')), variables('sbdataowner'))]",
-        "sbDataOwnerEtlProcessAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('etlProcessAppName')), resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName')), variables('sbdataowner'))]",
-        "sbDataOwnerEtlActionAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('etlActionAppName')), resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName')), variables('sbdataowner'))]",
-        "sbDataOwnerConfigAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('configAppName')), resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName')), variables('sbdataowner'))]",
-        "sbDataOwnerCsApiAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('csApiAppName')), resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName')), variables('sbdataowner'))]",
-        "sbDataOwnerCsProcessAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('csProcessAppName')), resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName')), variables('sbdataowner'))]",
-        "sbDataOwnerCsRetryAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('csRetryAppName')), resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName')), variables('sbdataowner'))]",
-        "strgBlobOwnerEtlApiAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('etlApiAppName')), resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName')), variables('strgBlobDataOwner'))]",
-        "strgBlobOwnerEtlRenewalAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('etlRenewalAppName')), resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), variables('strgBlobDataOwner'))]",
-        "strgBlobOwnerEtlMappingAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('etlMappingAppName')), resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), variables('strgBlobDataOwner'))]",
-        "strgBlobOwnerEtlProcessAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('etlProcessAppName')), resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), variables('strgBlobDataOwner'))]",
-        "strgBlobOwnerEtlActionAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('etlActionAppName')), resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), variables('strgBlobDataOwner'))]",
-        "strgBlobOwnerConfigAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('configAppName')), resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), variables('strgBlobDataOwner'))]",
-        "strgBlobOwnerCsApiAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('csApiAppName')), resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), variables('strgBlobDataOwner'))]",
-        "strgBlobOwnerCsProcessAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('csProcessAppName')), resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), variables('strgBlobDataOwner'))]",
-        "strgBlobOwnerCsRetryAppRoleId": "[guid(resourceId('Microsoft.Web/sites', variables('csRetryAppName')), resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), variables('strgBlobDataOwner'))]",
         "isETL": "[or(equals(parameters('Features'), 'ETL'), equals(parameters('Features'), 'Both'))]",
         "isCS": "[or(equals(parameters('Features'), 'Content Sync'), equals(parameters('Features'), 'Both'))]",
         "branch": "master"
     },
     "resources": [
-        {
-            "type": "Microsoft.Storage/storageAccounts",
-            "apiVersion": "2020-08-01-preview",
-            "name": "[variables('storageAccountName')]",
-            "location": "[variables('location')]",
-            "sku": {
-                "name": "Standard_RAGRS",
-                "tier": "Standard"
-            },
-            "kind": "StorageV2",
-            "properties": {
-                "minimumTlsVersion": "TLS1_2",
-                "allowBlobPublicAccess": true,
-                "allowSharedKeyAccess": true,
-                "networkAcls": {
-                    "bypass": "AzureServices",
-                    "virtualNetworkRules": [],
-                    "ipRules": [],
-                    "defaultAction": "Deny"
-                },
-                "supportsHttpsTrafficOnly": true,
-                "encryption": {
-                    "services": {
-                        "file": {
-                            "keyType": "Account",
-                            "enabled": true
-                        },
-                        "blob": {
-                            "keyType": "Account",
-                            "enabled": true
-                        }
-                    },
-                    "keySource": "Microsoft.Storage"
-                },
-                "accessTier": "Hot"
-            },
-            "resources": [
-                {
-                    "type": "Microsoft.Storage/storageAccounts/encryptionScopes",
-                    "apiVersion": "2020-08-01-preview",
-                    "name": "[concat(variables('storageAccountName'), '/DataAtRest')]",
-                    "dependsOn": [
-                        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
-                    ],
-                    "properties": {
-                        "source": "Microsoft.Storage",
-                        "state": "Enabled"
-                    }
-                },
-                {
-                    "type": "Microsoft.Storage/storageAccounts/blobServices",
-                    "apiVersion": "2020-08-01-preview",
-                    "name": "[concat(variables('storageAccountName'), '/default')]",
-                    "dependsOn": [
-                        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
-                    ],
-                    "sku": {
-                        "name": "Standard_RAGRS",
-                        "tier": "Standard"
-                    },
-                    "properties": {
-                        "cors": {
-                            "corsRules": []
-                        },
-                        "deleteRetentionPolicy": {
-                            "enabled": false
-                        }
-                    },
-                    "resources": [
-                        {
-                            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
-                            "apiVersion": "2020-08-01-preview",
-                            "name": "[concat(variables('storageAccountName'), '/default/', variables('applicationConfigBucket'))]",
-                            "dependsOn": [
-                                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', variables('storageAccountName'), 'default')]",
-                                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
-                            ],
-                            "properties": {
-                                "defaultEncryptionScope": "$account-encryption-key",
-                                "denyEncryptionScopeOverride": false,
-                                "publicAccess": "None"
-                            }
-                        },
-
-                        {
-                            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
-                            "apiVersion": "2020-08-01-preview",
-                            "name": "[concat(variables('storageAccountName'), '/default/', variables('encryptedBucket'))]",
-                            "dependsOn": [
-                                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', variables('storageAccountName'), 'default')]",
-                                "[resourceId('Microsoft.Storage/storageAccounts/encryptionScopes', variables('storageAccountName'), 'DataAtRest')]",
-                                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
-                            ],
-                            "properties": {
-                                "defaultEncryptionScope": "DataAtRest",
-                                "denyEncryptionScopeOverride": true,
-                                "publicAccess": "None"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "name": "[concat(variables('storageAccountName'), '/default')]",
-                    "type": "Microsoft.Storage/storageAccounts/managementPolicies",
-                    "apiVersion": "2020-08-01-preview",
-                    "dependsOn": [
-                        "[resourceId('Microsoft.Storage/storageAccounts/blobServices/containers', variables('storageAccountName'), 'default', variables('encryptedBucket'))]",
-                        "[resourceId('Microsoft.Storage/storageAccounts/blobServices', variables('storageAccountName'), 'default')]",
-                        "[resourceId('Microsoft.Storage/storageAccounts/encryptionScopes', variables('storageAccountName'), 'DataAtRest')]",
-                        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
-                    ],
-                    "properties": {
-                        "policy": {
-                            "rules": [
-                                {
-                                    "enabled": true,
-                                    "name": "lifecyclepolicy",
-                                    "type": "Lifecycle",
-                                    "definition": {
-                                        "actions": {
-                                            "baseBlob": {
-                                                "delete": {
-                                                    "daysAfterModificationGreaterThan": 30
-                                                }
-                                            }
-                                        },
-                                        "filters": {
-                                            "blobTypes": [
-                                                "blockBlob"
-                                            ],
-                                            "prefixMatch": [
-                                                "[concat(variables('encryptedBucket'), '/etl-actions')]",
-                                                "[concat(variables('encryptedBucket'), '/etl-process')]"
-                                            ]
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            ]
-        },
         {
             "condition": "[variables('isETL')]",
             "type": "Microsoft.Insights/components",
@@ -370,7 +183,6 @@
                     "location": "[variables('location')]",
                     "dependsOn": [
                         "[resourceId('Microsoft.Web/serverfarms', variables('webServerName'))]",
-                        "[resourceId('Microsoft.ServiceBus/namespaces/topics/subscriptions', variables('serviceBusName'), variables('etlRenewalTopicName'), concat(variables('etlRenewalTopicName'), '-sub'))]",
                         "[resourceId('Microsoft.Insights/components', variables('etlRenewalAppInsightsName'))]"
                     ],
                     "kind": "functionapp",
@@ -407,7 +219,7 @@
                                 },
                                 {
                                     "name": "AzureWebJobsServiceBusConnection",
-                                    "value": "[concat('Endpoint=sb://', variables('serviceBusName'), '.servicebus.windows.net/;SharedAccessKeyName=', variables('authorizationRulesName') ,';SharedAccessKey=', listKeys(resourceId('Microsoft.ServiceBus/namespaces/AuthorizationRules', variables('serviceBusName'), variables('authorizationRulesName')), '2017-04-01').primaryKey)]"
+                                    "value": "[concat('Endpoint=sb://', variables('serviceBusName'), '.servicebus.windows.net/;SharedAccessKeyName=', variables('authorizationRulesName') ,';SharedAccessKey=', listKeys(parameters('ServiceBusResourceId'), '2017-04-01').primaryKey)]"
                                 },
                                 {
                                     "name": "AzureWebJobsStorage",
@@ -521,265 +333,6 @@
             }
         },
         {
-            "type": "Microsoft.ServiceBus/namespaces",
-            "apiVersion": "2018-01-01-preview",
-            "name": "[variables('serviceBusName')]",
-            "location": "[variables('location')]",
-            "sku": {
-                "name": "Premium",
-                "tier": "Premium"
-            },
-            "properties": {
-                "zoneRedundant": false
-            },
-            "resources": [
-                {
-                    "type": "Microsoft.ServiceBus/namespaces/AuthorizationRules",
-                    "apiVersion": "2017-04-01",
-                    "name": "[concat(variables('serviceBusName'), '/', variables('authorizationRulesName'))]",
-                    "location": "[variables('location')]",
-                    "dependsOn": [
-                        "[resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName'))]"
-                    ],
-                    "properties": {
-                        "rights": [ "Listen", "Manage", "Send" ]
-                    }
-                },
-                {
-                    "condition": "[variables('isETL')]",
-                    "type": "Microsoft.ServiceBus/namespaces/queues",
-                    "apiVersion": "2018-01-01-preview",
-                    "name": "[concat(variables('serviceBusName'), '/', variables('etlQueueName'))]",
-                    "location": "[variables('location')]",
-                    "dependsOn": [
-                        "[resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName'))]"
-                    ],
-                    "properties": {
-                        "lockDuration": "PT5M",
-                        "maxSizeInMegabytes": 1024,
-                        "requiresDuplicateDetection": false,
-                        "requiresSession": false,
-                        "defaultMessageTimeToLive": "P14D",
-                        "deadLetteringOnMessageExpiration": false,
-                        "enableBatchedOperations": true,
-                        "duplicateDetectionHistoryTimeWindow": "PT10M",
-                        "maxDeliveryCount": 1,
-                        "status": "Active",
-                        "autoDeleteOnIdle": "P10675199DT2H48M5.4775807S",
-                        "enablePartitioning": false,
-                        "enableExpress": false
-                    }
-                },
-                {
-                    "condition": "[variables('isCS')]",
-                    "type": "Microsoft.ServiceBus/namespaces/queues",
-                    "apiVersion": "2018-01-01-preview",
-                    "name": "[concat(variables('serviceBusName'), '/', variables('csQueueName'))]",
-                    "location": "[variables('location')]",
-                    "dependsOn": [
-                        "[resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName'))]"
-                    ],
-                    "properties": {
-                        "lockDuration": "PT5M",
-                        "maxSizeInMegabytes": 5120,
-                        "requiresDuplicateDetection": false,
-                        "requiresSession": false,
-                        "defaultMessageTimeToLive": "P14D",
-                        "deadLetteringOnMessageExpiration": false,
-                        "enableBatchedOperations": true,
-                        "duplicateDetectionHistoryTimeWindow": "PT10M",
-                        "maxDeliveryCount": 1,
-                        "status": "Active",
-                        "autoDeleteOnIdle": "P10675199DT2H48M5.4775807S",
-                        "enablePartitioning": false,
-                        "enableExpress": false
-                    }
-                },
-                {
-                    "condition": "[variables('isETL')]",
-                    "type": "Microsoft.ServiceBus/namespaces/topics",
-                    "apiVersion": "2018-01-01-preview",
-                    "name": "[concat(variables('serviceBusName'), '/', variables('etlRenewalTopicName'))]",
-                    "location": "[variables('location')]",
-                    "dependsOn": [
-                        "[resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName'))]"
-                    ],
-                    "properties": {
-                        "defaultMessageTimeToLive": "P14D",
-                        "maxSizeInMegabytes": 1024,
-                        "requiresDuplicateDetection": false,
-                        "duplicateDetectionHistoryTimeWindow": "PT10M",
-                        "enableBatchedOperations": true,
-                        "status": "Active",
-                        "supportOrdering": true,
-                        "autoDeleteOnIdle": "P10675199DT2H48M5.4775807S",
-                        "enablePartitioning": false,
-                        "enableExpress": false
-                    },
-                    "resources": [
-                        {
-                            "condition": "[variables('isETL')]",
-                            "type": "Microsoft.ServiceBus/namespaces/topics/subscriptions",
-                            "apiVersion": "2018-01-01-preview",
-                            "name": "[concat(variables('serviceBusName'), '/', variables('etlRenewalTopicName'), '/', variables('etlRenewalTopicName'), '-sub')]",
-                            "location": "[variables('location')]",
-                            "dependsOn": [
-                                "[resourceId('Microsoft.ServiceBus/namespaces/topics', variables('serviceBusName'), variables('etlRenewalTopicName'))]",
-                                "[resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName'))]"
-                            ],
-                            "properties": {
-                                "lockDuration": "PT30S",
-                                "requiresSession": false,
-                                "defaultMessageTimeToLive": "P14D",
-                                "deadLetteringOnMessageExpiration": false,
-                                "deadLetteringOnFilterEvaluationExceptions": false,
-                                "maxDeliveryCount": 1,
-                                "status": "Active",
-                                "enableBatchedOperations": true,
-                                "autoDeleteOnIdle": "P14D"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "condition": "[variables('isETL')]",
-                    "type": "Microsoft.ServiceBus/namespaces/topics",
-                    "apiVersion": "2018-01-01-preview",
-                    "name": "[concat(variables('serviceBusName'), '/', variables('etlMappingTopicName'))]",
-                    "location": "[variables('location')]",
-                    "dependsOn": [
-                        "[resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName'))]"
-                    ],
-                    "properties": {
-                        "defaultMessageTimeToLive": "P14D",
-                        "maxSizeInMegabytes": 1024,
-                        "requiresDuplicateDetection": false,
-                        "duplicateDetectionHistoryTimeWindow": "PT10M",
-                        "enableBatchedOperations": true,
-                        "status": "Active",
-                        "supportOrdering": true,
-                        "autoDeleteOnIdle": "P10675199DT2H48M5.4775807S",
-                        "enablePartitioning": false,
-                        "enableExpress": false
-                    },
-                    "resources": [
-                        {
-                            "condition": "[variables('isETL')]",
-                            "type": "Microsoft.ServiceBus/namespaces/topics/subscriptions",
-                            "apiVersion": "2018-01-01-preview",
-                            "name": "[concat(variables('serviceBusName'), '/', variables('etlMappingTopicName'), '/', variables('etlMappingTopicName'), '-sub')]",
-                            "location": "[variables('location')]",
-                            "dependsOn": [
-                                "[resourceId('Microsoft.ServiceBus/namespaces/topics', variables('serviceBusName'), variables('etlMappingTopicName'))]",
-                                "[resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName'))]"
-                            ],
-                            "properties": {
-                                "lockDuration": "PT5M",
-                                "requiresSession": false,
-                                "defaultMessageTimeToLive": "P14D",
-                                "deadLetteringOnMessageExpiration": false,
-                                "deadLetteringOnFilterEvaluationExceptions": false,
-                                "maxDeliveryCount": 1,
-                                "status": "Active",
-                                "enableBatchedOperations": true,
-                                "autoDeleteOnIdle": "P14D"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "type": "Microsoft.ServiceBus/namespaces/topics",
-                    "apiVersion": "2018-01-01-preview",
-                    "name": "[concat(variables('serviceBusName'), '/', variables('reloadTopicName'))]",
-                    "location": "[variables('location')]",
-                    "dependsOn": [
-                        "[resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName'))]"
-                    ],
-                    "properties": {
-                        "defaultMessageTimeToLive": "P14D",
-                        "maxSizeInMegabytes": 1024,
-                        "requiresDuplicateDetection": false,
-                        "duplicateDetectionHistoryTimeWindow": "PT10M",
-                        "enableBatchedOperations": true,
-                        "status": "Active",
-                        "supportOrdering": true,
-                        "autoDeleteOnIdle": "P10675199DT2H48M5.4775807S",
-                        "enablePartitioning": false,
-                        "enableExpress": false
-                    },
-                    "resources": [
-                        {
-                            "type": "Microsoft.ServiceBus/namespaces/topics/subscriptions",
-                            "apiVersion": "2018-01-01-preview",
-                            "name": "[concat(variables('serviceBusName'), '/', variables('reloadTopicName'), '/', variables('reloadTopicName'), '-sub')]",
-                            "location": "[variables('location')]",
-                            "dependsOn": [
-                                "[resourceId('Microsoft.ServiceBus/namespaces/topics', variables('serviceBusName'), variables('reloadTopicName'))]",
-                                "[resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName'))]"
-                            ],
-                            "properties": {
-                                "lockDuration": "PT30S",
-                                "requiresSession": false,
-                                "defaultMessageTimeToLive": "P14D",
-                                "deadLetteringOnMessageExpiration": false,
-                                "deadLetteringOnFilterEvaluationExceptions": false,
-                                "maxDeliveryCount": 1,
-                                "status": "Active",
-                                "enableBatchedOperations": true,
-                                "autoDeleteOnIdle": "P14D"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "condition": "[variables('isETL')]",
-                    "type": "Microsoft.ServiceBus/namespaces/topics",
-                    "apiVersion": "2018-01-01-preview",
-                    "name": "[concat(variables('serviceBusName'), '/', variables('etlActionTopicName'))]",
-                    "location": "[variables('location')]",
-                    "dependsOn": [
-                        "[resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName'))]"
-                    ],
-                    "properties": {
-                        "defaultMessageTimeToLive": "P14D",
-                        "maxSizeInMegabytes": 1024,
-                        "requiresDuplicateDetection": false,
-                        "duplicateDetectionHistoryTimeWindow": "PT10M",
-                        "enableBatchedOperations": true,
-                        "status": "Active",
-                        "supportOrdering": true,
-                        "autoDeleteOnIdle": "P10675199DT2H48M5.4775807S",
-                        "enablePartitioning": false,
-                        "enableExpress": false
-                    },
-                    "resources": [
-                        {
-                            "condition": "[variables('isETL')]",
-                            "type": "Microsoft.ServiceBus/namespaces/topics/subscriptions",
-                            "apiVersion": "2018-01-01-preview",
-                            "name": "[concat(variables('serviceBusName'), '/', variables('etlActionTopicName'), '/', variables('etlActionTopicName'), '-sub')]",
-                            "location": "[variables('location')]",
-                            "dependsOn": [
-                                "[resourceId('Microsoft.ServiceBus/namespaces/topics', variables('serviceBusName'), variables('etlActionTopicName'))]",
-                                "[resourceId('Microsoft.ServiceBus/namespaces', variables('serviceBusName'))]"
-                            ],
-                            "properties": {
-                                "lockDuration": "PT5M",
-                                "requiresSession": false,
-                                "defaultMessageTimeToLive": "P14D",
-                                "deadLetteringOnMessageExpiration": false,
-                                "deadLetteringOnFilterEvaluationExceptions": false,
-                                "maxDeliveryCount": 1,
-                                "status": "Active",
-                                "enableBatchedOperations": true,
-                                "autoDeleteOnIdle": "P14D"
-                            }
-                        }
-                    ]
-                }
-            ]
-        },
-        {
             "condition": "[variables('isETL')]",
             "type": "Microsoft.Insights/components",
             "apiVersion": "2020-02-02-preview",
@@ -837,7 +390,7 @@
                                 },
                                 {
                                     "name": "AzureWebJobsServiceBusConnection",
-                                    "value": "[concat('Endpoint=sb://', variables('serviceBusName'), '.servicebus.windows.net/;SharedAccessKeyName=', variables('authorizationRulesName') ,';SharedAccessKey=', listKeys(resourceId('Microsoft.ServiceBus/namespaces/AuthorizationRules', variables('serviceBusName'), variables('authorizationRulesName')), '2017-04-01').primaryKey)]"
+                                    "value": "[concat('Endpoint=sb://', variables('serviceBusName'), '.servicebus.windows.net/;SharedAccessKeyName=', variables('authorizationRulesName') ,';SharedAccessKey=', listKeys(parameters('ServiceBusResourceId'), '2017-04-01').primaryKey)]"
                                 },
                                 {
                                     "name": "AzureWebJobsStorage",
@@ -979,8 +532,7 @@
                     "name": "[variables('etlMappingAppName')]",
                     "location": "[variables('location')]",
                     "dependsOn": [
-                        "[resourceId('Microsoft.Web/serverfarms', variables('webServerName'))]",
-                        "[resourceId('Microsoft.ServiceBus/namespaces/topics/subscriptions', variables('serviceBusName'), variables('etlMappingTopicName'), concat(variables('etlMappingTopicName'), '-sub'))]",
+                        "[resourceId('Microsoft.Web/serverfarms', variables('webServerName'))]",                        
                         "[resourceId('Microsoft.Insights/components', variables('etlMappingAppInsightsName'))]"
                     ],
                     "kind": "functionapp",
@@ -1017,7 +569,7 @@
                                 },
                                 {
                                     "name": "AzureWebJobsServiceBusConnection",
-                                    "value": "[concat('Endpoint=sb://', variables('serviceBusName'), '.servicebus.windows.net/;SharedAccessKeyName=', variables('authorizationRulesName') ,';SharedAccessKey=', listKeys(resourceId('Microsoft.ServiceBus/namespaces/AuthorizationRules', variables('serviceBusName'), variables('authorizationRulesName')), '2017-04-01').primaryKey)]"
+                                    "value": "[concat('Endpoint=sb://', variables('serviceBusName'), '.servicebus.windows.net/;SharedAccessKeyName=', variables('authorizationRulesName') ,';SharedAccessKey=', listKeys(parameters('ServiceBusResourceId'), '2017-04-01').primaryKey)]"
                                 },
                                 {
                                     "name": "AzureWebJobsStorage",
@@ -1172,7 +724,6 @@
                     "location": "[variables('location')]",
                     "dependsOn": [
                         "[resourceId('Microsoft.Web/serverfarms', variables('webServerName'))]",
-                        "[resourceId('Microsoft.ServiceBus/namespaces/queues', variables('serviceBusName'), variables('etlQueueName'))]",
                         "[resourceId('Microsoft.Insights/components', variables('etlProcessAppInsightsName'))]"
                     ],
                     "kind": "functionapp",
@@ -1209,7 +760,7 @@
                                 },
                                 {
                                     "name": "AzureWebJobsServiceBusConnection",
-                                    "value": "[concat('Endpoint=sb://', variables('serviceBusName'), '.servicebus.windows.net/;SharedAccessKeyName=', variables('authorizationRulesName') ,';SharedAccessKey=', listKeys(resourceId('Microsoft.ServiceBus/namespaces/AuthorizationRules', variables('serviceBusName'), variables('authorizationRulesName')), '2017-04-01').primaryKey)]"
+                                    "value": "[concat('Endpoint=sb://', variables('serviceBusName'), '.servicebus.windows.net/;SharedAccessKeyName=', variables('authorizationRulesName') ,';SharedAccessKey=', listKeys(parameters('ServiceBusResourceId'), '2017-04-01').primaryKey)]"
                                 },
                                 {
                                     "name": "AzureWebJobsStorage",
@@ -1372,7 +923,6 @@
                     "location": "[variables('location')]",
                     "dependsOn": [
                         "[resourceId('Microsoft.Web/serverfarms', variables('webServerName'))]",
-                        "[resourceId('Microsoft.ServiceBus/namespaces/topics/subscriptions', variables('serviceBusName'), variables('etlActionTopicName'), concat(variables('etlActionTopicName'), '-sub'))]",
                         "[resourceId('Microsoft.Insights/components', variables('etlActionAppInsightsName'))]"
                     ],
                     "kind": "functionapp",
@@ -1409,7 +959,7 @@
                                 },
                                 {
                                     "name": "AzureWebJobsServiceBusConnection",
-                                    "value": "[concat('Endpoint=sb://', variables('serviceBusName'), '.servicebus.windows.net/;SharedAccessKeyName=', variables('authorizationRulesName') ,';SharedAccessKey=', listKeys(resourceId('Microsoft.ServiceBus/namespaces/AuthorizationRules', variables('serviceBusName'), variables('authorizationRulesName')), '2017-04-01').primaryKey)]"
+                                    "value": "[concat('Endpoint=sb://', variables('serviceBusName'), '.servicebus.windows.net/;SharedAccessKeyName=', variables('authorizationRulesName') ,';SharedAccessKey=', listKeys(parameters('ServiceBusResourceId'), '2017-04-01').primaryKey)]"
                                 },
                                 {
                                     "name": "AzureWebJobsStorage",
@@ -1558,9 +1108,7 @@
                     "location": "[variables('Location')]",
                     "dependsOn": [
                         "[resourceId('Microsoft.Web/serverfarms', variables('webServerName'))]",
-                        "[resourceId('Microsoft.Insights/components', variables('configAppInsightsName'))]",
-                        "[resourceId('Microsoft.ServiceBus/namespaces/queues', variables('serviceBusName'), variables('etlQueueName'))]",
-                        "[resourceId('Microsoft.ServiceBus/namespaces/queues', variables('serviceBusName'), variables('csQueueName'))]"
+                        "[resourceId('Microsoft.Insights/components', variables('configAppInsightsName'))]"
                     ],
                     "kind": "functionapp",
                     "identity": {
@@ -1790,7 +1338,7 @@
                                 },
                                 {
                                     "name": "AzureWebJobsServiceBusConnection",
-                                    "value": "[concat('Endpoint=sb://', variables('serviceBusName'), '.servicebus.windows.net/;SharedAccessKeyName=', variables('authorizationRulesName') ,';SharedAccessKey=', listKeys(resourceId('Microsoft.ServiceBus/namespaces/AuthorizationRules', variables('serviceBusName'), variables('authorizationRulesName')), '2017-04-01').primaryKey)]"
+                                    "value": "[concat('Endpoint=sb://', variables('serviceBusName'), '.servicebus.windows.net/;SharedAccessKeyName=', variables('authorizationRulesName') ,';SharedAccessKey=', listKeys(parameters('ServiceBusResourceId'), '2017-04-01').primaryKey)]"
                                 },
                                 {
                                     "name": "AzureWebJobsStorage",
@@ -1933,7 +1481,6 @@
                     "location": "[variables('location')]",
                     "dependsOn": [
                         "[resourceId('Microsoft.Web/serverfarms', variables('webServerName'))]",
-                        "[resourceId('Microsoft.ServiceBus/namespaces/queues', variables('serviceBusName'), variables('csQueueName'))]",
                         "[resourceId('Microsoft.Insights/components', variables('csProcessAppInsightsName'))]"
                     ],
                     "kind": "functionapp",
@@ -1970,7 +1517,7 @@
                                 },
                                 {
                                     "name": "AzureWebJobsServiceBusConnection",
-                                    "value": "[concat('Endpoint=sb://', variables('serviceBusName'), '.servicebus.windows.net/;SharedAccessKeyName=', variables('authorizationRulesName') ,';SharedAccessKey=', listKeys(resourceId('Microsoft.ServiceBus/namespaces/AuthorizationRules', variables('serviceBusName'), variables('authorizationRulesName')), '2017-04-01').primaryKey)]"
+                                    "value": "[concat('Endpoint=sb://', variables('serviceBusName'), '.servicebus.windows.net/;SharedAccessKeyName=', variables('authorizationRulesName') ,';SharedAccessKey=', listKeys(parameters('ServiceBusResourceId'), '2017-04-01').primaryKey)]"
                                 },
                                 {
                                     "name": "AzureWebJobsStorage",
@@ -2169,7 +1716,7 @@
                                 },
                                 {
                                     "name": "AzureWebJobsServiceBusConnection",
-                                    "value": "[concat('Endpoint=sb://', variables('serviceBusName'), '.servicebus.windows.net/;SharedAccessKeyName=', variables('authorizationRulesName') ,';SharedAccessKey=', listKeys(resourceId('Microsoft.ServiceBus/namespaces/AuthorizationRules', variables('serviceBusName'), variables('authorizationRulesName')), '2017-04-01').primaryKey)]"
+                                    "value": "[concat('Endpoint=sb://', variables('serviceBusName'), '.servicebus.windows.net/;SharedAccessKeyName=', variables('authorizationRulesName') ,';SharedAccessKey=', listKeys(parameters('ServiceBusResourceId'), '2017-04-01').primaryKey)]"
                                 },
                                 {
                                     "name": "AzureWebJobsStorage",
