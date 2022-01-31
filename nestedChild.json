@@ -476,7 +476,8 @@
                             "apiVersion": "2018-11-01",
                             "name": "ZipDeploy",
                             "dependsOn": [
-                                "[resourceId('Microsoft.Web/sites', variables('etlApiAppName'))]"
+                                "[resourceId('Microsoft.Web/sites', variables('etlApiAppName'))]",
+                                "[concat('Microsoft.Web/Sites/', variables('configAppName'), '/Extensions/ZipDeploy')]"
                             ],
                             "properties": {
                                 "packageUri": "[concat('https://github.com/d-manney/cam-azure-deployment/raw/', variables('branch'), '/etl-api.zip')]",
@@ -667,7 +668,9 @@
                             "apiVersion": "2018-11-01",
                             "name": "ZipDeploy",
                             "dependsOn": [
-                                "[resourceId('Microsoft.Web/sites', variables('etlMappingAppName'))]"
+                                "[resourceId('Microsoft.Web/sites', variables('etlMappingAppName'))]",
+                                "[concat('Microsoft.Web/Sites/', variables('etlApiAppName'), '/Extensions/ZipDeploy')]",
+                                "[concat('Microsoft.Web/Sites/', variables('configAppName'), '/Extensions/ZipDeploy')]"
                             ],
                             "properties": {
                                 "packageUri": "[concat('https://github.com/d-manney/cam-azure-deployment/raw/', variables('branch'), '/etl-mapping.zip')]",
@@ -866,7 +869,10 @@
                             "apiVersion": "2018-11-01",
                             "name": "ZipDeploy",
                             "dependsOn": [
-                                "[resourceId('Microsoft.Web/sites', variables('etlProcessAppName'))]"
+                                "[resourceId('Microsoft.Web/sites', variables('etlProcessAppName'))]",
+                                "[concat('Microsoft.Web/Sites/', variables('etlMappingAppName'), '/Extensions/ZipDeploy')]",
+                                "[concat('Microsoft.Web/Sites/', variables('etlApiAppName'), '/Extensions/ZipDeploy')]",
+                                "[concat('Microsoft.Web/Sites/', variables('configAppName'), '/Extensions/ZipDeploy')]"
                             ],
                             "properties": {
                                 "packageUri": "[concat('https://github.com/d-manney/cam-azure-deployment/raw/', variables('branch'), '/etl-process.zip')]",
@@ -1053,7 +1059,11 @@
                             "apiVersion": "2018-11-01",
                             "name": "ZipDeploy",
                             "dependsOn": [
-                                "[resourceId('Microsoft.Web/sites', variables('etlActionAppName'))]"
+                                "[resourceId('Microsoft.Web/sites', variables('etlActionAppName'))]",
+                                "[concat('Microsoft.Web/Sites/', variables('etlProcessAppName'), '/Extensions/ZipDeploy')]",
+                                "[concat('Microsoft.Web/Sites/', variables('etlApiAppName'), '/Extensions/ZipDeploy')]",
+                                "[concat('Microsoft.Web/Sites/', variables('etlMappingAppName'), '/Extensions/ZipDeploy')]",
+                                "[concat('Microsoft.Web/Sites/', variables('configAppName'), '/Extensions/ZipDeploy')]"
                             ],
                             "properties": {
                                 "packageUri": "[concat('https://github.com/d-manney/cam-azure-deployment/raw/', variables('branch'), '/etl-action.zip')]",
@@ -1247,6 +1257,14 @@
                                     "value": "[parameters('Features')]"
                                 },
                                 {
+                                    "name": "WEBSITE_CONTENTOVERVNET",
+                                    "value": "1"
+                                },
+                                {
+                                    "name": "WEBSITE_VNET_ROUTE_ALL",
+                                    "value": "1"
+                                },
+                                {
                                     "name": "WEBSITE_RUN_FROM_PACKAGE",
                                     "value": "1"
                                 }
@@ -1261,7 +1279,8 @@
                         "httpsOnly": false,
                         "redundancyMode": "None",
                         "virtualNetworkSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnet1Name'))]",
-                        "keyVaultReferenceIdentity": "SystemAssigned"
+                        "keyVaultReferenceIdentity": "SystemAssigned",
+                        "functionsRuntimeScaleMonitoringEnabled": true
                     },
                     "resources": [
                         {
