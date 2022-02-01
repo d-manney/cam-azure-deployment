@@ -294,6 +294,14 @@
                                     "value": "[variables('etlRenewalTopicName')]"
                                 },
                                 {
+                                    "name": "WEBSITE_CONTENTOVERVNET",
+                                    "value": "1"
+                                },
+                                {
+                                    "name": "WEBSITE_VNET_ROUTE_ALL",
+                                    "value": "1"
+                                },
+                                {
                                     "name": "WEBSITE_RUN_FROM_PACKAGE",
                                     "value": "1"
                                 }
@@ -451,6 +459,14 @@
                                 {
                                     "name": "service_name",
                                     "value": "[variables('etlApiAppName')]"
+                                },
+                                {
+                                    "name": "WEBSITE_CONTENTOVERVNET",
+                                    "value": "1"
+                                },
+                                {
+                                    "name": "WEBSITE_VNET_ROUTE_ALL",
+                                    "value": "1"
                                 },
                                 {
                                     "name": "WEBSITE_RUN_FROM_PACKAGE",
@@ -643,6 +659,14 @@
                                 {
                                     "name": "etl_mapping_worker_topic",
                                     "value": "[variables('etlMappingTopicName')]"
+                                },
+                                {
+                                    "name": "WEBSITE_CONTENTOVERVNET",
+                                    "value": "1"
+                                },
+                                {
+                                    "name": "WEBSITE_VNET_ROUTE_ALL",
+                                    "value": "1"
                                 },
                                 {
                                     "name": "WEBSITE_RUN_FROM_PACKAGE",
@@ -846,6 +870,14 @@
                                     "value": "60"
                                 },
                                 {
+                                    "name": "WEBSITE_CONTENTOVERVNET",
+                                    "value": "1"
+                                },
+                                {
+                                    "name": "WEBSITE_VNET_ROUTE_ALL",
+                                    "value": "1"
+                                },
+                                {
                                     "name": "WEBSITE_RUN_FROM_PACKAGE",
                                     "value": "1"
                                 }
@@ -1034,6 +1066,14 @@
                                 {
                                     "name": "etl_mapping_action_topic",
                                     "value": "[variables('etlActionTopicName')]"
+                                },
+                                {
+                                    "name": "WEBSITE_CONTENTOVERVNET",
+                                    "value": "1"
+                                },
+                                {
+                                    "name": "WEBSITE_VNET_ROUTE_ALL",
+                                    "value": "1"
                                 },
                                 {
                                     "name": "WEBSITE_RUN_FROM_PACKAGE",
@@ -1420,6 +1460,14 @@
                                     "value": "[variables('csApiAppName')]"
                                 },
                                 {
+                                    "name": "WEBSITE_CONTENTOVERVNET",
+                                    "value": "1"
+                                },
+                                {
+                                    "name": "WEBSITE_VNET_ROUTE_ALL",
+                                    "value": "1"
+                                },
+                                {
                                     "name": "WEBSITE_RUN_FROM_PACKAGE",
                                     "value": "1"
                                 }
@@ -1458,7 +1506,9 @@
                             "name": "[concat(variables('csApiAppName'), '/Microsoft.Insights/function-logs')]",
                             "dependsOn": [
                                 "[resourceId('Microsoft.Web/sites', variables('csApiAppName'))]",
-                                "[concat('Microsoft.Web/Sites/', variables('csApiAppName'), '/Extensions/ZipDeploy')]"
+                                "[concat('Microsoft.Web/Sites/', variables('csApiAppName'), '/Extensions/ZipDeploy')]",
+                                "[concat('Microsoft.Web/Sites/', variables('csProcessAppName'), '/Extensions/ZipDeploy')]",
+                                "[concat('Microsoft.Web/Sites/', variables('csRetryAppName'), '/Extensions/ZipDeploy')]"
                             ],
                             "properties": {
                                 "storageAccountId": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
@@ -1619,6 +1669,14 @@
                                     "value": "60"
                                 },
                                 {
+                                    "name": "WEBSITE_CONTENTOVERVNET",
+                                    "value": "1"
+                                },
+                                {
+                                    "name": "WEBSITE_VNET_ROUTE_ALL",
+                                    "value": "1"
+                                },
+                                {
                                     "name": "WEBSITE_RUN_FROM_PACKAGE",
                                     "value": "1"
                                 }
@@ -1642,7 +1700,9 @@
                             "apiVersion": "2018-11-01",
                             "name": "ZipDeploy",
                             "dependsOn": [
-                                "[resourceId('Microsoft.Web/sites', variables('csProcessAppName'))]"
+                                "[resourceId('Microsoft.Web/sites', variables('csProcessAppName'))]",
+                                "[concat('Microsoft.Web/Sites/', variables('csApiAppName'), '/Extensions/ZipDeploy')]",
+                                "[concat('Microsoft.Web/Sites/', variables('csRetryAppName'), '/Extensions/ZipDeploy')]"
                             ],
                             "properties": {
                                 "packageUri": "[concat('https://github.com/d-manney/cam-azure-deployment/raw/', variables('branch'), '/contentsync-process.zip')]",
@@ -1657,7 +1717,9 @@
                             "name": "[concat(variables('csProcessAppName'), '/Microsoft.Insights/function-logs')]",
                             "dependsOn": [
                                 "[resourceId('Microsoft.Web/sites', variables('csProcessAppName'))]",
-                                "[concat('Microsoft.Web/Sites/', variables('csProcessAppName'), '/Extensions/ZipDeploy')]"
+                                "[concat('Microsoft.Web/Sites/', variables('csProcessAppName'), '/Extensions/ZipDeploy')]",
+                                "[concat('Microsoft.Web/Sites/', variables('csApiAppName'), '/Extensions/ZipDeploy')]",
+                                "[concat('Microsoft.Web/Sites/', variables('csRetryAppName'), '/Extensions/ZipDeploy')]"
                             ],
                             "properties": {
                                 "storageAccountId": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
@@ -1810,6 +1872,14 @@
                                     "value": "600"
                                 },
                                 {
+                                    "name": "WEBSITE_CONTENTOVERVNET",
+                                    "value": "1"
+                                },
+                                {
+                                    "name": "WEBSITE_VNET_ROUTE_ALL",
+                                    "value": "1"
+                                },
+                                {
                                     "name": "WEBSITE_RUN_FROM_PACKAGE",
                                     "value": "1"
                                 }
@@ -1833,7 +1903,8 @@
                             "apiVersion": "2018-11-01",
                             "name": "ZipDeploy",
                             "dependsOn": [
-                                "[resourceId('Microsoft.Web/sites', variables('csRetryAppName'))]"
+                                "[resourceId('Microsoft.Web/sites', variables('csRetryAppName'))]",
+                                "[concat('Microsoft.Web/Sites/', variables('csApiAppName'), '/Extensions/ZipDeploy')]"
                             ],
                             "properties": {
                                 "packageUri": "[concat('https://github.com/d-manney/cam-azure-deployment/raw/', variables('branch'), '/contentsync-retry.zip')]",
@@ -1848,7 +1919,9 @@
                             "name": "[concat(variables('csRetryAppName'), '/Microsoft.Insights/function-logs')]",
                             "dependsOn": [
                                 "[resourceId('Microsoft.Web/sites', variables('csRetryAppName'))]",
-                                "[concat('Microsoft.Web/Sites/', variables('csRetryAppName'), '/Extensions/ZipDeploy')]"
+                                "[concat('Microsoft.Web/Sites/', variables('csRetryAppName'), '/Extensions/ZipDeploy')]",
+                                "[concat('Microsoft.Web/Sites/', variables('csApiAppName'), '/Extensions/ZipDeploy')]",
+                                "[concat('Microsoft.Web/Sites/', variables('csProcessAppName'), '/Extensions/ZipDeploy')]"
                             ],
                             "properties": {
                                 "storageAccountId": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
