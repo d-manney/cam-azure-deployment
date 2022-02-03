@@ -224,56 +224,7 @@
                 }
             ]
         },
-        {
-            "type": "Microsoft.Storage/storageAccounts/fileServices",
-            "apiVersion": "2021-06-01",
-            "name": "[concat(variables('storageAccountName'), '/default')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
-            ],
-            "sku": {
-                "name": "Standard_RAGRS",
-                "tier": "Standard"
-            },
-            "properties": {
-                "protocolSettings": {
-                    "smb": {}
-                },
-                "cors": {
-                    "corsRules": []
-                },
-                "shareDeleteRetentionPolicy": {
-                    "enabled": true,
-                    "days": 7
-                }
-            }
-        },
-        {
-            "type": "Microsoft.Storage/storageAccounts/queueServices",
-            "apiVersion": "2021-06-01",
-            "name": "[concat(variables('storageAccountName'), '/default')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
-            ],
-            "properties": {
-                "cors": {
-                    "corsRules": []
-                }
-            }
-        },
-        {
-            "type": "Microsoft.Storage/storageAccounts/tableServices",
-            "apiVersion": "2021-06-01",
-            "name": "[concat(variables('storageAccountName'), '/default')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
-            ],
-            "properties": {
-                "cors": {
-                    "corsRules": []
-                }
-            }
-        }
+        
     ],
     "outputs": {
        
