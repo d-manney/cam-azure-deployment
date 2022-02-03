@@ -183,7 +183,8 @@
                     "location": "[variables('location')]",
                     "dependsOn": [
                         "[resourceId('Microsoft.Web/serverfarms', variables('webServerName'))]",
-                        "[resourceId('Microsoft.Insights/components', variables('etlRenewalAppInsightsName'))]"
+                        "[resourceId('Microsoft.Insights/components', variables('etlRenewalAppInsightsName'))]",
+                        "[resourceId('Microsoft.Web/sites', variables('configAppName'))]"
                     ],
                     "kind": "functionapp",
                     "identity": {
@@ -264,6 +265,10 @@
                                 {
                                     "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
                                     "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')),'2019-06-01').keys[0].value, ';EndpointSuffix=core.windows.net')]"
+                                },
+                                {
+                                    "name": "WEBSITE_CONTENTSHARE",
+                                    "value": "[concat(toLower(variables('configAppName')), '9ded')]"
                                 },
                                 {
                                     "name": "api_base_url",
@@ -362,7 +367,8 @@
                     "location": "[variables('location')]",
                     "dependsOn": [
                         "[resourceId('Microsoft.Web/serverfarms', variables('webServerName'))]",
-                        "[resourceId('Microsoft.Insights/components', variables('etlApiAppInsightsName'))]"
+                        "[resourceId('Microsoft.Insights/components', variables('etlApiAppInsightsName'))]",
+                        "[resourceId('Microsoft.Web/sites', variables('configAppName'))]"
                     ],
                     "kind": "functionapp",
                     "identity": {
@@ -443,6 +449,10 @@
                                 {
                                     "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
                                     "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')),'2019-06-01').keys[0].value, ';EndpointSuffix=core.windows.net')]"
+                                },
+                                {
+                                    "name": "WEBSITE_CONTENTSHARE",
+                                    "value": "[concat(toLower(variables('configAppName')), '9ded')]"
                                 },
                                 {
                                     "name": "api_base_url",
@@ -550,7 +560,8 @@
                     "location": "[variables('location')]",
                     "dependsOn": [
                         "[resourceId('Microsoft.Web/serverfarms', variables('webServerName'))]",                        
-                        "[resourceId('Microsoft.Insights/components', variables('etlMappingAppInsightsName'))]"
+                        "[resourceId('Microsoft.Insights/components', variables('etlMappingAppInsightsName'))]",
+                        "[resourceId('Microsoft.Web/sites', variables('configAppName'))]"
                     ],
                     "kind": "functionapp",
                     "identity": {
@@ -631,6 +642,10 @@
                                 {
                                     "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
                                     "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')),'2019-06-01').keys[0].value, ';EndpointSuffix=core.windows.net')]"
+                                },
+                                {
+                                    "name": "WEBSITE_CONTENTSHARE",
+                                    "value": "[concat(toLower(variables('configAppName')), '9ded')]"
                                 },
                                 {
                                     "name": "api_base_url",
@@ -751,7 +766,8 @@
                     "location": "[variables('location')]",
                     "dependsOn": [
                         "[resourceId('Microsoft.Web/serverfarms', variables('webServerName'))]",
-                        "[resourceId('Microsoft.Insights/components', variables('etlProcessAppInsightsName'))]"
+                        "[resourceId('Microsoft.Insights/components', variables('etlProcessAppInsightsName'))]",
+                        "[resourceId('Microsoft.Web/sites', variables('configAppName'))]"
                     ],
                     "kind": "functionapp",
                     "identity": {
@@ -836,6 +852,10 @@
                                 {
                                     "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
                                     "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')),'2019-06-01').keys[0].value, ';EndpointSuffix=core.windows.net')]"
+                                },
+                                {
+                                    "name": "WEBSITE_CONTENTSHARE",
+                                    "value": "[concat(toLower(variables('configAppName')), '9ded')]"
                                 },
                                 {
                                     "name": "api_base_url",
@@ -961,7 +981,8 @@
                     "location": "[variables('location')]",
                     "dependsOn": [
                         "[resourceId('Microsoft.Web/serverfarms', variables('webServerName'))]",
-                        "[resourceId('Microsoft.Insights/components', variables('etlActionAppInsightsName'))]"
+                        "[resourceId('Microsoft.Insights/components', variables('etlActionAppInsightsName'))]",
+                        "[resourceId('Microsoft.Web/sites', variables('configAppName'))]"
                     ],
                     "kind": "functionapp",
                     "identity": {
@@ -1042,6 +1063,10 @@
                                 {
                                     "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
                                     "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')),'2019-06-01').keys[0].value, ';EndpointSuffix=core.windows.net')]"
+                                },
+                                {
+                                    "name": "WEBSITE_CONTENTSHARE",
+                                    "value": "[concat(toLower(variables('configAppName')), '9ded')]"
                                 },
                                 {
                                     "name": "api_base_url",
@@ -1361,7 +1386,8 @@
                     "location": "[variables('location')]",
                     "dependsOn": [
                         "[resourceId('Microsoft.Web/serverfarms', variables('webServerName'))]",
-                        "[resourceId('Microsoft.Insights/components', variables('csApiAppInsightsName'))]"
+                        "[resourceId('Microsoft.Insights/components', variables('csApiAppInsightsName'))]",
+                        "[resourceId('Microsoft.Web/sites', variables('configAppName'))]"
                     ],
                     "kind": "functionapp",
                     "identity": {
@@ -1442,6 +1468,10 @@
                                 {
                                     "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
                                     "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')),'2019-06-01').keys[0].value, ';EndpointSuffix=core.windows.net')]"
+                                },
+                                {
+                                    "name": "WEBSITE_CONTENTSHARE",
+                                    "value": "[concat(toLower(variables('configAppName')), '9ded')]"
                                 },
                                 {
                                     "name": "api_base_url",
@@ -1550,7 +1580,8 @@
                     "location": "[variables('location')]",
                     "dependsOn": [
                         "[resourceId('Microsoft.Web/serverfarms', variables('webServerName'))]",
-                        "[resourceId('Microsoft.Insights/components', variables('csProcessAppInsightsName'))]"
+                        "[resourceId('Microsoft.Insights/components', variables('csProcessAppInsightsName'))]",
+                        "[resourceId('Microsoft.Web/sites', variables('configAppName'))]"
                     ],
                     "kind": "functionapp",
                     "identity": {
@@ -1635,6 +1666,10 @@
                                 {
                                     "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
                                     "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')),'2019-06-01').keys[0].value, ';EndpointSuffix=core.windows.net')]"
+                                },
+                                {
+                                    "name": "WEBSITE_CONTENTSHARE",
+                                    "value": "[concat(toLower(variables('configAppName')), '9ded')]"
                                 },
                                 {
                                     "name": "api_base_url",
@@ -1761,7 +1796,8 @@
                     "location": "[variables('location')]",
                     "dependsOn": [
                         "[resourceId('Microsoft.Web/serverfarms', variables('webServerName'))]",
-                        "[resourceId('Microsoft.Insights/components', variables('csRetryAppInsightsName'))]"
+                        "[resourceId('Microsoft.Insights/components', variables('csRetryAppInsightsName'))]",
+                        "[resourceId('Microsoft.Web/sites', variables('configAppName'))]"
                     ],
                     "kind": "functionapp",
                     "identity": {
@@ -1846,6 +1882,10 @@
                                 {
                                     "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
                                     "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')),'2019-06-01').keys[0].value, ';EndpointSuffix=core.windows.net')]"
+                                },
+                                {
+                                    "name": "WEBSITE_CONTENTSHARE",
+                                    "value": "[concat(toLower(variables('configAppName')), '9ded')]"
                                 },
                                 {
                                     "name": "api_base_url",
