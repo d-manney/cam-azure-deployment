@@ -15,6 +15,48 @@
         "TopLevelDomain": {
             "type": "string",
             "allowedValues": [ "io", "eu", "com", "co.uk" ]
+        },
+         "vnetName": {
+            "type": "string",
+            "defaultValue": "VNet1",
+            "metadata": {
+              "description": "VNet name"
+            }
+        },
+          "vnetAddressPrefix": {
+            "type": "string",
+            "defaultValue": "10.0.0.0/16",
+            "metadata": {
+              "description": "Address prefix"
+            }
+        },
+          "subnet1Prefix": {
+            "type": "string",
+            "defaultValue": "10.0.0.0/24",
+            "metadata": {
+              "description": "Subnet 1 Prefix"
+            }
+        },
+          "subnet1Name": {
+            "type": "string",
+            "defaultValue": "Subnet1",
+            "metadata": {
+              "description": "Subnet 1 Name"
+            }
+        },
+          "subnet2Prefix": {
+            "type": "string",
+            "defaultValue": "10.0.1.0/24",
+            "metadata": {
+              "description": "Subnet 2 Prefix"
+            }
+        },
+          "subnet2Name": {
+            "type": "string",
+            "defaultValue": "Subnet2",
+            "metadata": {
+              "description": "Subnet 2 Name"
+            }
         }
     },
     "variables": {
@@ -28,7 +70,7 @@
     "resources": [
         {
             "type": "Microsoft.Storage/storageAccounts",
-            "apiVersion": "2020-08-01-preview",
+            "apiVersion": "2021-06-01",
             "name": "[variables('storageAccountName')]",
             "location": "[variables('location')]",
             "sku": {
@@ -37,17 +79,30 @@
             },
             "kind": "StorageV2",
             "properties": {
+                "defaultToOAuthAuthentication": false,
+                "allowCrossTenantReplication": true,
                 "minimumTlsVersion": "TLS1_2",
                 "allowBlobPublicAccess": true,
                 "allowSharedKeyAccess": true,
                 "networkAcls": {
+                    "resourceAccessRules": [],
                     "bypass": "AzureServices",
-                    "virtualNetworkRules": [],
+                    "virtualNetworkRules": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnet1Name'))]",
+                            "action": "Allow"
+                        },
+                        {
+                            "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnet2Name'))]",
+                            "action": "Allow"
+                        }
+                    ],
                     "ipRules": [],
                     "defaultAction": "Deny"
                 },
                 "supportsHttpsTrafficOnly": true,
                 "encryption": {
+                    "requireInfrastructureEncryption": false,
                     "services": {
                         "file": {
                             "keyType": "Account",
@@ -65,7 +120,7 @@
             "resources": [
                 {
                     "type": "Microsoft.Storage/storageAccounts/encryptionScopes",
-                    "apiVersion": "2020-08-01-preview",
+                    "apiVersion": "2021-06-01",
                     "name": "[concat(variables('storageAccountName'), '/DataAtRest')]",
                     "dependsOn": [
                         "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
@@ -77,7 +132,7 @@
                 },
                 {
                     "type": "Microsoft.Storage/storageAccounts/blobServices",
-                    "apiVersion": "2020-08-01-preview",
+                    "apiVersion": "2021-06-01",
                     "name": "[concat(variables('storageAccountName'), '/default')]",
                     "dependsOn": [
                         "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
@@ -168,6 +223,56 @@
                     }
                 }
             ]
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/fileServices",
+            "apiVersion": "2021-06-01",
+            "name": "[concat(variables('storageAccountName'), '/default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+            ],
+            "sku": {
+                "name": "Standard_RAGRS",
+                "tier": "Standard"
+            },
+            "properties": {
+                "protocolSettings": {
+                    "smb": {}
+                },
+                "cors": {
+                    "corsRules": []
+                },
+                "shareDeleteRetentionPolicy": {
+                    "enabled": true,
+                    "days": 7
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/queueServices",
+            "apiVersion": "2021-06-01",
+            "name": "[concat(variables('storageAccountName'), '/default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+            ],
+            "properties": {
+                "cors": {
+                    "corsRules": []
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/tableServices",
+            "apiVersion": "2021-06-01",
+            "name": "[concat(variables('storageAccountName'), '/default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+            ],
+            "properties": {
+                "cors": {
+                    "corsRules": []
+                }
+            }
         }
     ],
     "outputs": {
