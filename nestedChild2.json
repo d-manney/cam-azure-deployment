@@ -226,7 +226,7 @@
         },
         {
             "condition": "[variables('isETL')]",
-            "type": "Extensions",
+            "type": "Microsoft.Web/sites/Extensions",
             "apiVersion": "2018-11-01",
             "name": "ZipDeploy",
             "dependsOn": [
@@ -266,7 +266,7 @@
         },
         {
             "condition": "[variables('isETL')]",
-            "type": "Extensions",
+            "type": "Microsoft.Web/sites/Extensions",
             "apiVersion": "2018-11-01",
             "name": "ZipDeploy",
             "dependsOn": [
@@ -306,7 +306,7 @@
             }
         },
         {
-            "type": "Extensions",
+            "type": "Microsoft.Web/sites/Extensions",
             "apiVersion": "2018-11-01",
             "name": "ZipDeploy",
             "dependsOn": [
@@ -319,7 +319,7 @@
         },
         {
             "condition": "[variables('isCS')]",
-            "type": "Extensions",
+            "type": "Microsoft.Web/sites/Extensions",
             "apiVersion": "2018-11-01",
             "name": "ZipDeploy",
             "dependsOn": [
@@ -358,7 +358,7 @@
         },
         {
             "condition": "[variables('isCS')]",
-            "type": "Extensions",
+            "type": "Microsoft.Web/sites/Extensions",
             "apiVersion": "2018-11-01",
             "name": "ZipDeploy",
             "dependsOn": [
@@ -399,7 +399,7 @@
         },
         {
             "condition": "[variables('isCS')]",
-            "type": "Extensions",
+            "type": "Microsoft.Web/sites/Extensions",
             "apiVersion": "2018-11-01",
             "name": "ZipDeploy",
             "dependsOn": [
@@ -439,7 +439,7 @@
         },
         {
             "condition": "[variables('isETL')]",
-            "type": "Extensions",
+            "type": "Microsoft.Web/sites/Extensions",
             "apiVersion": "2018-11-01",
             "name": "ZipDeploy",
             "dependsOn": [
@@ -477,7 +477,7 @@
         },
         {
             "condition": "[variables('isETL')]",
-            "type": "Extensions",
+            "type": "Microsoft.Web/sites/Extensions",
             "apiVersion": "2018-11-01",
             "name": "ZipDeploy",
             "dependsOn": [
