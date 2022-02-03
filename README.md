@@ -68,3 +68,4 @@ When you deploy this Azure Resource Manager template, the following resources wi
     * Renewal Function App: <NS> + "-etl-renewal" (e.g. contentsync-dev-io-etl-renewal)
     * Mapping Function App: <NS> + "-etl-mapping" (e.g. contentsync-dev-io-etl-mapping)
     * Resources Function App: <NS> + "-etl-process" (e.g. contentsync-dev-io-etl-process)
+d
