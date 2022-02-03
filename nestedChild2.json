@@ -16,6 +16,10 @@
             "type": "string",
             "allowedValues": [ "io", "eu", "com", "co.uk" ]
         },
+        "Features": {
+            "type": "string",
+            "allowedValues": [ "ETL", "Content Sync", "Both" ]
+        },
          "vnetName": {
             "type": "string",
             "defaultValue": "VNet1",
@@ -65,7 +69,28 @@
         "storageAccountName": "[concat('strg',variables('commonId'))]",
         "applicationConfigBucket": "[concat(variables('resourcesNamespace'), '-application-config')]",
         "encryptedBucket": "[concat(variables('resourcesNamespace'), '-encrypted-bucket')]",
-        "Location": "[resourceGroup().location]"
+        "Location": "[resourceGroup().location]",
+        "etlApiAppName": "[concat(variables('resourcesNamespace'), '-etl-api')]",
+        "etlRenewalAppName": "[concat(variables('resourcesNamespace'), '-etl-renewal')]",
+        "etlMappingAppName": "[concat(variables('resourcesNamespace'), '-etl-mapping')]",
+        "etlProcessAppName": "[concat(variables('resourcesNamespace'), '-etl-process')]",
+        "etlActionAppName": "[concat(variables('resourcesNamespace'), '-etl-action')]",
+        "configAppName": "[concat(variables('resourcesNamespace'), '-etl-config')]",
+        "csApiAppName": "[concat(variables('resourcesNamespace'), '-contentsync-api')]",
+        "csProcessAppName": "[concat(variables('resourcesNamespace'), '-contentsync-process')]",
+        "csRetryAppName": "[concat(variables('resourcesNamespace'), '-contentsync-retry')]",
+        "etlApiAppInsightsName": "[concat(variables('resourcesNamespace'), '-etl-api')]",
+        "etlRenewalAppInsightsName": "[concat(variables('resourcesNamespace'), '-etl-renewal')]",
+        "etlMappingAppInsightsName": "[concat(variables('resourcesNamespace'), '-etl-mapping')]",
+        "etlProcessAppInsightsName": "[concat(variables('resourcesNamespace'), '-etl-process')]",
+        "etlActionAppInsightsName": "[concat(variables('resourcesNamespace'), '-etl-action')]",
+        "configAppInsightsName": "[concat(variables('resourcesNamespace'), '-etl-config')]",
+        "csApiAppInsightsName": "[concat(variables('resourcesNamespace'), '-contentsync-api')]",
+        "csProcessAppInsightsName": "[concat(variables('resourcesNamespace'), '-contentsync-process')]",
+        "csRetryAppInsightsName": "[concat(variables('resourcesNamespace'), '-contentsync-retry')]",
+        "isETL": "[or(equals(parameters('Features'), 'ETL'), equals(parameters('Features'), 'Both'))]",
+        "isCS": "[or(equals(parameters('Features'), 'Content Sync'), equals(parameters('Features'), 'Both'))]",
+        "branch": "master"
     },
     "resources": [
         {
