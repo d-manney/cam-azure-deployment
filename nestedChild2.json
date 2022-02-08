@@ -96,21 +96,7 @@
                     "ipRules": [],
                     "defaultAction": "Deny"
                 },
-                "supportsHttpsTrafficOnly": true,
-                "encryption": {
-                    "requireInfrastructureEncryption": false,
-                    "services": {
-                        "file": {
-                            "keyType": "Account",
-                            "enabled": true
-                        },
-                        "blob": {
-                            "keyType": "Account",
-                            "enabled": true
-                        }
-                    },
-                    "keySource": "Microsoft.Storage"
-                }
+                "supportsHttpsTrafficOnly": true
             },
             "resources": [
             ]
