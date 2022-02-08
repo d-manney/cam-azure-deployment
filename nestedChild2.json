@@ -87,16 +87,7 @@
                 "networkAcls": {
                     "resourceAccessRules": [],
                     "bypass": "AzureServices",
-                    "virtualNetworkRules": [
-                        {
-                            "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnet1Name'))]",
-                            "action": "Allow"
-                        },
-                        {
-                            "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnet2Name'))]",
-                            "action": "Allow"
-                        }
-                    ],
+                    "virtualNetworkRules": [],
                     "ipRules": [],
                     "defaultAction": "Allow"
                 },
