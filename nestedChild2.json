@@ -110,8 +110,7 @@
                         }
                     },
                     "keySource": "Microsoft.Storage"
-                },
-                "accessTier": "Hot"
+                }
             },
             "resources": [
             ]
