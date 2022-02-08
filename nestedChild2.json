@@ -93,7 +93,6 @@
                 },
                 "supportsHttpsTrafficOnly": true,
                 "encryption": {
-                    "requireInfrastructureEncryption": false,
                     "services": {
                         "file": {
                             "keyType": "Account",
