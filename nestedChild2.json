@@ -183,6 +183,7 @@
                     "name": "[variables('etlRenewalAppName')]",
                     "location": "[variables('location')]",
                     "dependsOn": [
+                        "[resourceId('Microsoft.Insights/components', variables('etlRenewalAppInsightsName'))]",
                         "[resourceId('Microsoft.Web/sites', variables('configAppName'))]"
                     ],
                     "kind": "functionapp",
@@ -349,6 +350,7 @@
                     "name": "[variables('etlApiAppName')]",
                     "location": "[variables('location')]",
                     "dependsOn": [
+                        "[resourceId('Microsoft.Insights/components', variables('etlApiAppInsightsName'))]",
                         "[resourceId('Microsoft.Web/sites', variables('configAppName'))]"
                     ],
                     "kind": "functionapp",
@@ -506,6 +508,7 @@
                     "name": "[variables('etlMappingAppName')]",
                     "location": "[variables('location')]",
                     "dependsOn": [
+                        "[resourceId('Microsoft.Insights/components', variables('etlMappingAppInsightsName'))]",
                         "[resourceId('Microsoft.Web/sites', variables('configAppName'))]"
                     ],
                     "kind": "functionapp",
@@ -675,6 +678,7 @@
                     "name": "[variables('etlProcessAppName')]",
                     "location": "[variables('location')]",
                     "dependsOn": [
+                        "[resourceId('Microsoft.Insights/components', variables('etlProcessAppInsightsName'))]",
                         "[resourceId('Microsoft.Web/sites', variables('configAppName'))]"
                     ],
                     "kind": "functionapp",
@@ -852,6 +856,7 @@
                     "name": "[variables('etlActionAppName')]",
                     "location": "[variables('location')]",
                     "dependsOn": [
+                        "[resourceId('Microsoft.Insights/components', variables('etlActionAppName'))]",
                         "[resourceId('Microsoft.Web/sites', variables('configAppName'))]"
                     ],
                     "kind": "functionapp",
@@ -1014,7 +1019,9 @@
                     "apiVersion": "2018-11-01",
                     "name": "[variables('configAppName')]",
                     "location": "[variables('Location')]",
-                    "dependsOn": [],
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Insights/components', variables('configAppInsightsName'))]"
+                    ],
                     "kind": "functionapp",
                     "identity": {
                         "type": "SystemAssigned"
@@ -1206,6 +1213,7 @@
                     "name": "[variables('csApiAppName')]",
                     "location": "[variables('location')]",
                     "dependsOn": [
+                        "[resourceId('Microsoft.Insights/components', variables('csApiAppInsightsName'))]",
                         "[resourceId('Microsoft.Web/sites', variables('configAppName'))]"
                     ],
                     "kind": "functionapp",
@@ -1363,6 +1371,7 @@
                     "name": "[variables('csProcessAppName')]",
                     "location": "[variables('location')]",
                     "dependsOn": [
+                        "[resourceId('Microsoft.Insights/components', variables('csProcessAppInsightsName'))]",
                         "[resourceId('Microsoft.Web/sites', variables('configAppName'))]"
                     ],
                     "kind": "functionapp",
@@ -1540,6 +1549,7 @@
                     "name": "[variables('csRetryAppName')]",
                     "location": "[variables('location')]",
                     "dependsOn": [
+                        "[resourceId('Microsoft.Insights/components', variables('csRetryAppInsightsName'))]",
                         "[resourceId('Microsoft.Web/sites', variables('configAppName'))]"
                     ],
                     "kind": "functionapp",
