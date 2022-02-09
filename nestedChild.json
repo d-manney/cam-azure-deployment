@@ -295,18 +295,6 @@
                                     "value": "[variables('etlRenewalTopicName')]"
                                 },
                                 {
-                                    "name": "WEBSITE_CONTENTOVERVNET",
-                                    "value": "1"
-                                },
-                                {
-                                    "name": "WEBSITE_VNET_ROUTE_ALL",
-                                    "value": "1"
-                                },
-                                {
-                                    "name": "WEBSITE_DNS_SERVER",
-                                    "value": "168.63.129.16"    
-                                },
-                                {
                                     "name": "WEBSITE_RUN_FROM_PACKAGE",
                                     "value": "1"
                                 }
@@ -319,8 +307,7 @@
                         "containerSize": 1536,
                         "dailyMemoryTimeQuota": 0,
                         "httpsOnly": false,
-                        "redundancyMode": "None",
-                        "functionsRuntimeScaleMonitoringEnabled": 1
+                        "redundancyMode": "None"
                     }
                 }
             ]
@@ -468,18 +455,6 @@
                                     "value": "[variables('etlApiAppName')]"
                                 },
                                 {
-                                    "name": "WEBSITE_CONTENTOVERVNET",
-                                    "value": "1"
-                                },
-                                {
-                                    "name": "WEBSITE_VNET_ROUTE_ALL",
-                                    "value": "1"
-                                },
-                                {
-                                    "name": "WEBSITE_DNS_SERVER",
-                                    "value": "168.63.129.16"    
-                                },
-                                {
                                     "name": "WEBSITE_RUN_FROM_PACKAGE",
                                     "value": "1"
                                 }
@@ -494,8 +469,7 @@
                         "httpsOnly": false,
                         "redundancyMode": "None",
                         "virtualNetworkSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnet1Name'))]",
-                        "keyVaultReferenceIdentity": "SystemAssigned",
-                        "functionsRuntimeScaleMonitoringEnabled": 1
+                        "keyVaultReferenceIdentity": "SystemAssigned"
                     },
                     "resources": [
                         {
@@ -674,18 +648,6 @@
                                     "value": "[variables('etlMappingTopicName')]"
                                 },
                                 {
-                                    "name": "WEBSITE_CONTENTOVERVNET",
-                                    "value": "1"
-                                },
-                                {
-                                    "name": "WEBSITE_VNET_ROUTE_ALL",
-                                    "value": "1"
-                                },
-                                {
-                                    "name": "WEBSITE_DNS_SERVER",
-                                    "value": "168.63.129.16"    
-                                },
-                                {
                                     "name": "WEBSITE_RUN_FROM_PACKAGE",
                                     "value": "1"
                                 }
@@ -700,8 +662,7 @@
                         "httpsOnly": false,
                         "redundancyMode": "None",
                         "virtualNetworkSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnet1Name'))]",
-                        "keyVaultReferenceIdentity": "SystemAssigned",
-                        "functionsRuntimeScaleMonitoringEnabled": 1
+                        "keyVaultReferenceIdentity": "SystemAssigned"
                     },
                     "resources": [
                         {
@@ -889,18 +850,6 @@
                                     "value": "60"
                                 },
                                 {
-                                    "name": "WEBSITE_CONTENTOVERVNET",
-                                    "value": "1"
-                                },
-                                {
-                                    "name": "WEBSITE_VNET_ROUTE_ALL",
-                                    "value": "1"
-                                },
-                                {
-                                    "name": "WEBSITE_DNS_SERVER",
-                                    "value": "168.63.129.16"    
-                                },
-                                {
                                     "name": "WEBSITE_RUN_FROM_PACKAGE",
                                     "value": "1"
                                 }
@@ -915,8 +864,7 @@
                         "httpsOnly": false,
                         "redundancyMode": "None",
                         "virtualNetworkSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnet1Name'))]",
-                        "keyVaultReferenceIdentity": "SystemAssigned",
-                        "functionsRuntimeScaleMonitoringEnabled": 1
+                        "keyVaultReferenceIdentity": "SystemAssigned"
                     },
                     "resources": [
                         {
@@ -1093,18 +1041,6 @@
                                     "value": "[variables('etlActionTopicName')]"
                                 },
                                 {
-                                    "name": "WEBSITE_CONTENTOVERVNET",
-                                    "value": "1"
-                                },
-                                {
-                                    "name": "WEBSITE_VNET_ROUTE_ALL",
-                                    "value": "1"
-                                },
-                                {
-                                    "name": "WEBSITE_DNS_SERVER",
-                                    "value": "168.63.129.16"    
-                                },
-                                {
                                     "name": "WEBSITE_RUN_FROM_PACKAGE",
                                     "value": "1"
                                 }
@@ -1119,8 +1055,7 @@
                         "httpsOnly": false,
                         "redundancyMode": "None",
                         "virtualNetworkSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnet1Name'))]",
-                        "keyVaultReferenceIdentity": "SystemAssigned",
-                        "functionsRuntimeScaleMonitoringEnabled": 1
+                        "keyVaultReferenceIdentity": "SystemAssigned"
                     },
                     "resources": [
                         {
@@ -1327,18 +1262,6 @@
                                     "value": "[parameters('Features')]"
                                 },
                                 {
-                                    "name": "WEBSITE_CONTENTOVERVNET",
-                                    "value": "1"
-                                },
-                                {
-                                    "name": "WEBSITE_VNET_ROUTE_ALL",
-                                    "value": "1"
-                                },
-                                {
-                                    "name": "WEBSITE_DNS_SERVER",
-                                    "value": "168.63.129.16"    
-                                },
-                                {
                                     "name": "WEBSITE_RUN_FROM_PACKAGE",
                                     "value": "1"
                                 }
@@ -1353,8 +1276,7 @@
                         "httpsOnly": false,
                         "redundancyMode": "None",
                         "virtualNetworkSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnet1Name'))]",
-                        "keyVaultReferenceIdentity": "SystemAssigned",
-                        "functionsRuntimeScaleMonitoringEnabled": 1
+                        "keyVaultReferenceIdentity": "SystemAssigned"
                     },
                     "resources": [
                         {
@@ -1495,18 +1417,6 @@
                                     "value": "[variables('csApiAppName')]"
                                 },
                                 {
-                                    "name": "WEBSITE_CONTENTOVERVNET",
-                                    "value": "1"
-                                },
-                                {
-                                    "name": "WEBSITE_VNET_ROUTE_ALL",
-                                    "value": "1"
-                                },
-                                {
-                                    "name": "WEBSITE_DNS_SERVER",
-                                    "value": "168.63.129.16"    
-                                },
-                                {
                                     "name": "WEBSITE_RUN_FROM_PACKAGE",
                                     "value": "1"
                                 }
@@ -1521,8 +1431,7 @@
                         "httpsOnly": false,
                         "redundancyMode": "None",
                         "virtualNetworkSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnet1Name'))]",
-                        "keyVaultReferenceIdentity": "SystemAssigned",
-                        "functionsRuntimeScaleMonitoringEnabled": 1
+                        "keyVaultReferenceIdentity": "SystemAssigned"
                     },
                     "resources": [
                         {
@@ -1710,18 +1619,6 @@
                                     "value": "60"
                                 },
                                 {
-                                    "name": "WEBSITE_CONTENTOVERVNET",
-                                    "value": "1"
-                                },
-                                {
-                                    "name": "WEBSITE_VNET_ROUTE_ALL",
-                                    "value": "1"
-                                },
-                                {
-                                    "name": "WEBSITE_DNS_SERVER",
-                                    "value": "168.63.129.16"    
-                                },
-                                {
                                     "name": "WEBSITE_RUN_FROM_PACKAGE",
                                     "value": "1"
                                 }
@@ -1736,8 +1633,7 @@
                         "httpsOnly": false,
                         "redundancyMode": "None",
                         "virtualNetworkSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnet1Name'))]",
-                        "keyVaultReferenceIdentity": "SystemAssigned",
-                        "functionsRuntimeScaleMonitoringEnabled": 1
+                        "keyVaultReferenceIdentity": "SystemAssigned"
                     },
                     "resources": [
                         {
@@ -1933,8 +1829,7 @@
                         "httpsOnly": false,
                         "redundancyMode": "None",
                         "virtualNetworkSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('subnet1Name'))]",
-                        "keyVaultReferenceIdentity": "SystemAssigned",
-                        "functionsRuntimeScaleMonitoringEnabled": 1
+                        "keyVaultReferenceIdentity": "SystemAssigned"
                     },
                     "resources": [
                         {
