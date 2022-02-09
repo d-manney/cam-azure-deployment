@@ -74,7 +74,9 @@
         "configAppName": "[concat(variables('resourcesNamespace'), '-etl-config')]",
         "csApiAppName": "[concat(variables('resourcesNamespace'), '-contentsync-api')]",
         "csProcessAppName": "[concat(variables('resourcesNamespace'), '-contentsync-process')]",
-        "csRetryAppName": "[concat(variables('resourcesNamespace'), '-contentsync-retry')]"
+        "csRetryAppName": "[concat(variables('resourcesNamespace'), '-contentsync-retry')]",
+        "isETL": "[or(equals(parameters('Features'), 'ETL'), equals(parameters('Features'), 'Both'))]",
+        "isCS": "[or(equals(parameters('Features'), 'Content Sync'), equals(parameters('Features'), 'Both'))]"
     },
     "resources": [
         {
