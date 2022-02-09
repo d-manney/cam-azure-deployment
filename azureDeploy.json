@@ -3701,8 +3701,20 @@
                     "ServiceBusResourceId":{
                         "value": "[resourceId('Microsoft.ServiceBus/namespaces/AuthorizationRules', variables('serviceBusName'), variables('authorizationRulesName'))]"
                     },
+                    "ProsperowareTenantId": {
+                        "value": "[parameters('ProsperowareTenantId')]"
+                    },
+                    "ProsperowareEncryptedKey": {
+                        "value": "[parameters('ProsperowareEncryptedKey')]"
+                    },
+                    "ProsperowareSecretKey": {
+                        "value": "[parameters('ProsperowareSecretKey')]"
+                    },
                     "Features": {
                         "value": "[parameters('Features')]"
+                    },
+                    "IsProduction": {
+                        "value": "[parameters('IsProduction')]"
                     },
                     "EnvironmentStage": {
                         "value": "[parameters('EnvironmentStage')]"
