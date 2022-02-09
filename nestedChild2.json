@@ -65,7 +65,16 @@
         "storageAccountName": "[concat('strg',variables('commonId'))]",
         "applicationConfigBucket": "[concat(variables('resourcesNamespace'), '-application-config')]",
         "encryptedBucket": "[concat(variables('resourcesNamespace'), '-encrypted-bucket')]",
-        "Location": "[resourceGroup().location]"
+        "Location": "[resourceGroup().location]",
+        "etlApiAppName": "[concat(variables('resourcesNamespace'), '-etl-api')]",
+        "etlRenewalAppName": "[concat(variables('resourcesNamespace'), '-etl-renewal')]",
+        "etlMappingAppName": "[concat(variables('resourcesNamespace'), '-etl-mapping')]",
+        "etlProcessAppName": "[concat(variables('resourcesNamespace'), '-etl-process')]",
+        "etlActionAppName": "[concat(variables('resourcesNamespace'), '-etl-action')]",
+        "configAppName": "[concat(variables('resourcesNamespace'), '-etl-config')]",
+        "csApiAppName": "[concat(variables('resourcesNamespace'), '-contentsync-api')]",
+        "csProcessAppName": "[concat(variables('resourcesNamespace'), '-contentsync-process')]",
+        "csRetryAppName": "[concat(variables('resourcesNamespace'), '-contentsync-retry')]"
     },
     "resources": [
         {
@@ -126,8 +135,6 @@
             "name": "[variables('etlRenewalAppName')]",
             "location": "[variables('location')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/serverfarms', variables('webServerName'))]",
-                "[resourceId('Microsoft.Insights/components', variables('etlRenewalAppInsightsName'))]",
                 "[resourceId('Microsoft.Web/sites', variables('configAppName'))]"
             ],
             "kind": "functionapp",
@@ -278,8 +285,6 @@
             "name": "[variables('etlApiAppName')]",
             "location": "[variables('location')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/serverfarms', variables('webServerName'))]",
-                "[resourceId('Microsoft.Insights/components', variables('etlApiAppInsightsName'))]",
                 "[resourceId('Microsoft.Web/sites', variables('configAppName'))]"
             ],
             "kind": "functionapp",
@@ -421,8 +426,6 @@
             "name": "[variables('etlMappingAppName')]",
             "location": "[variables('location')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/serverfarms', variables('webServerName'))]",                        
-                "[resourceId('Microsoft.Insights/components', variables('etlMappingAppInsightsName'))]",
                 "[resourceId('Microsoft.Web/sites', variables('configAppName'))]"
             ],
             "kind": "functionapp",
@@ -576,8 +579,6 @@
             "name": "[variables('etlProcessAppName')]",
             "location": "[variables('location')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/serverfarms', variables('webServerName'))]",
-                "[resourceId('Microsoft.Insights/components', variables('etlProcessAppInsightsName'))]",
                 "[resourceId('Microsoft.Web/sites', variables('configAppName'))]"
             ],
             "kind": "functionapp",
@@ -739,8 +740,6 @@
             "name": "[variables('etlActionAppName')]",
             "location": "[variables('location')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/serverfarms', variables('webServerName'))]",
-                "[resourceId('Microsoft.Insights/components', variables('etlActionAppInsightsName'))]",
                 "[resourceId('Microsoft.Web/sites', variables('configAppName'))]"
             ],
             "kind": "functionapp",
@@ -888,10 +887,7 @@
             "apiVersion": "2018-11-01",
             "name": "[variables('configAppName')]",
             "location": "[variables('Location')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Web/serverfarms', variables('webServerName'))]",
-                "[resourceId('Microsoft.Insights/components', variables('configAppInsightsName'))]"
-            ],
+            "dependsOn": [],
             "kind": "functionapp",
             "identity": {
                 "type": "SystemAssigned"
@@ -1067,8 +1063,6 @@
             "name": "[variables('csApiAppName')]",
             "location": "[variables('location')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/serverfarms', variables('webServerName'))]",
-                "[resourceId('Microsoft.Insights/components', variables('csApiAppInsightsName'))]",
                 "[resourceId('Microsoft.Web/sites', variables('configAppName'))]"
             ],
             "kind": "functionapp",
@@ -1210,8 +1204,6 @@
             "name": "[variables('csProcessAppName')]",
             "location": "[variables('location')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/serverfarms', variables('webServerName'))]",
-                "[resourceId('Microsoft.Insights/components', variables('csProcessAppInsightsName'))]",
                 "[resourceId('Microsoft.Web/sites', variables('configAppName'))]"
             ],
             "kind": "functionapp",
@@ -1373,8 +1365,6 @@
             "name": "[variables('csRetryAppName')]",
             "location": "[variables('location')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/serverfarms', variables('webServerName'))]",
-                "[resourceId('Microsoft.Insights/components', variables('csRetryAppInsightsName'))]",
                 "[resourceId('Microsoft.Web/sites', variables('configAppName'))]"
             ],
             "kind": "functionapp",
