@@ -22,6 +22,21 @@
             "type": "string",
             "allowedValues": [ "io", "eu", "com", "co.uk" ]
         },
+        "administratorLogin": {
+            "type": "string",
+            "minLength": 1,
+            "metadata": {
+                "description": "MySQL Database administrator login name"
+            }
+        },
+        "administratorLoginPassword": {
+            "type": "securestring",
+            "minLength": 8,
+            "maxLength": 128,
+            "metadata": {
+                "description": "MySQL Database administrator password"
+            }
+        },
          "vnetName": {
             "type": "string",
             "defaultValue": "VNet1",
