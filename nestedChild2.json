@@ -1095,7 +1095,7 @@
                                 },
                                 {
                                     "name": "FUNCTIONS_WORKER_RUNTIME",
-                                    "value": "java"
+                                    "value": "node"
                                 },
                                 {
                                     "name": "WEBSITE_NODE_DEFAULT_VERSION",
