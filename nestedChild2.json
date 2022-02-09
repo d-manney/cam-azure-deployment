@@ -57,6 +57,10 @@
             "metadata": {
               "description": "Subnet 2 Name"
             }
+        },
+        "Features": {
+            "type": "string",
+            "allowedValues": [ "ETL", "Content Sync", "Both" ]
         }
     },
     "variables": {
