@@ -311,10 +311,6 @@
                                     "value": "168.63.129.16"    
                                 },
                                 {
-                                    "name":"SERVICEBUS_CONNECTION",
-                                    "value": "[concat('Endpoint=sb://', variables('serviceBusName'), '.servicebus.windows.net/;SharedAccessKeyName=', variables('authorizationRulesName') ,';SharedAccessKey=', listKeys(parameters('ServiceBusResourceId'), '2017-04-01').primaryKey)]"    
-                                },
-                                {
                                     "name": "WEBSITE_RUN_FROM_PACKAGE",
                                     "value": "1"
                                 }
@@ -490,10 +486,6 @@
                                 {
                                     "name": "WEBSITE_DNS_SERVER",
                                     "value": "168.63.129.16"    
-                                },
-                                {
-                                    "name":"SERVICEBUS_CONNECTION",
-                                    "value": "[concat('Endpoint=sb://', variables('serviceBusName'), '.servicebus.windows.net/;SharedAccessKeyName=', variables('authorizationRulesName') ,';SharedAccessKey=', listKeys(parameters('ServiceBusResourceId'), '2017-04-01').primaryKey)]"    
                                 },
                                 {
                                     "name": "WEBSITE_RUN_FROM_PACKAGE",
@@ -704,10 +696,6 @@
                                 {
                                     "name": "WEBSITE_DNS_SERVER",
                                     "value": "168.63.129.16"    
-                                },
-                                {
-                                    "name":"SERVICEBUS_CONNECTION",
-                                    "value": "[concat('Endpoint=sb://', variables('serviceBusName'), '.servicebus.windows.net/;SharedAccessKeyName=', variables('authorizationRulesName') ,';SharedAccessKey=', listKeys(parameters('ServiceBusResourceId'), '2017-04-01').primaryKey)]"    
                                 },
                                 {
                                     "name": "WEBSITE_RUN_FROM_PACKAGE",
@@ -929,10 +917,6 @@
                                     "value": "168.63.129.16"    
                                 },
                                 {
-                                    "name":"SERVICEBUS_CONNECTION",
-                                    "value": "[concat('Endpoint=sb://', variables('serviceBusName'), '.servicebus.windows.net/;SharedAccessKeyName=', variables('authorizationRulesName') ,';SharedAccessKey=', listKeys(parameters('ServiceBusResourceId'), '2017-04-01').primaryKey)]"    
-                                },
-                                {
                                     "name": "WEBSITE_RUN_FROM_PACKAGE",
                                     "value": "1"
                                 }
@@ -1141,10 +1125,6 @@
                                     "value": "168.63.129.16"    
                                 },
                                 {
-                                    "name":"SERVICEBUS_CONNECTION",
-                                    "value": "[concat('Endpoint=sb://', variables('serviceBusName'), '.servicebus.windows.net/;SharedAccessKeyName=', variables('authorizationRulesName') ,';SharedAccessKey=', listKeys(parameters('ServiceBusResourceId'), '2017-04-01').primaryKey)]"    
-                                },
-                                {
                                     "name": "WEBSITE_RUN_FROM_PACKAGE",
                                     "value": "1"
                                 }
@@ -1329,10 +1309,6 @@
                                 {
                                     "name": "cosmos_csdbname",
                                     "value": "[variables('commonId')]"
-                                },
-                                {
-                                    "name":"SERVICEBUS_CONNECTION",
-                                    "value": "[concat('Endpoint=sb://', variables('serviceBusName'), '.servicebus.windows.net/;SharedAccessKeyName=', variables('authorizationRulesName') ,';SharedAccessKey=', listKeys(parameters('ServiceBusResourceId'), '2017-04-01').primaryKey)]"    
                                 },
                                 {
                                     "name": "servicebus_namespace",
@@ -1555,10 +1531,6 @@
                                     "value": "168.63.129.16"    
                                 },
                                 {
-                                    "name":"SERVICEBUS_CONNECTION",
-                                    "value": "[concat('Endpoint=sb://', variables('serviceBusName'), '.servicebus.windows.net/;SharedAccessKeyName=', variables('authorizationRulesName') ,';SharedAccessKey=', listKeys(parameters('ServiceBusResourceId'), '2017-04-01').primaryKey)]"    
-                                },
-                                {
                                     "name": "WEBSITE_RUN_FROM_PACKAGE",
                                     "value": "1"
                                 }
@@ -1778,10 +1750,6 @@
                                     "value": "168.63.129.16"    
                                 },
                                 {
-                                    "name":"SERVICEBUS_CONNECTION",
-                                    "value": "[concat('Endpoint=sb://', variables('serviceBusName'), '.servicebus.windows.net/;SharedAccessKeyName=', variables('authorizationRulesName') ,';SharedAccessKey=', listKeys(parameters('ServiceBusResourceId'), '2017-04-01').primaryKey)]"    
-                                },
-                                {
                                     "name": "WEBSITE_RUN_FROM_PACKAGE",
                                     "value": "1"
                                 }
@@ -1993,10 +1961,6 @@
                                 {
                                     "name": "WEBSITE_DNS_SERVER",
                                     "value": "168.63.129.16"    
-                                },
-                                {
-                                    "name":"SERVICEBUS_CONNECTION",
-                                    "value": "[concat('Endpoint=sb://', variables('serviceBusName'), '.servicebus.windows.net/;SharedAccessKeyName=', variables('authorizationRulesName') ,';SharedAccessKey=', listKeys(parameters('ServiceBusResourceId'), '2017-04-01').primaryKey)]"    
                                 },
                                 {
                                     "name": "WEBSITE_RUN_FROM_PACKAGE",
