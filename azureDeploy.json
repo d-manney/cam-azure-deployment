@@ -3698,7 +3698,12 @@
                     "uri":"[concat('https://raw.githubusercontent.com/d-manney/cam-azure-deployment/', variables('branch'), '/nestedChild2.json')]"
                 },
                 "parameters": {
-                    
+                    "ServiceBusResourceId":{
+                        "value": "[resourceId('Microsoft.ServiceBus/namespaces/AuthorizationRules', variables('serviceBusName'), variables('authorizationRulesName'))]"
+                    },
+                    "Features": {
+                        "value": "[parameters('Features')]"
+                    },
                     "EnvironmentStage": {
                         "value": "[parameters('EnvironmentStage')]"
                     },
@@ -3707,6 +3712,12 @@
                     },
                     "TopLevelDomain": {
                         "value": "[parameters('TopLevelDomain')]"
+                    },
+                    "administratorLogin": {
+                        "value": "[parameters('administratorLogin')]"
+                    },
+                    "administratorLoginPassword": {
+                        "value": "[parameters('administratorLoginPassword')]"
                     }
                 } 
             }
