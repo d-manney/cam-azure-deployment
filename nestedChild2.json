@@ -311,7 +311,7 @@
                                 },
                                 {
                                     "name": "WEBSITE_CONTENTSHARE",
-                                    "value": "[concat(toLower(variables('configAppName')), '9ded')]"
+                                    "value": "[concat(toLower(variables('etlRenewalAppName')), '-a1017fce')]"
                                 },
                                 {
                                     "name": "api_base_url",
@@ -478,7 +478,7 @@
                                 },
                                 {
                                     "name": "WEBSITE_CONTENTSHARE",
-                                    "value": "[concat(toLower(variables('configAppName')), '9ded')]"
+                                    "value": "[concat(toLower(variables('etlApiAppName')), '-56c011a')]"
                                 },
                                 {
                                     "name": "api_base_url",
@@ -636,7 +636,7 @@
                                 },
                                 {
                                     "name": "WEBSITE_CONTENTSHARE",
-                                    "value": "[concat(toLower(variables('configAppName')), '9ded')]"
+                                    "value": "[concat(toLower(variables('etlMappingAppName')), '-14411700')]"
                                 },
                                 {
                                     "name": "api_base_url",
@@ -810,7 +810,7 @@
                                 },
                                 {
                                     "name": "WEBSITE_CONTENTSHARE",
-                                    "value": "[concat(toLower(variables('configAppName')), '9ded')]"
+                                    "value": "[concat(toLower(variables('etlProcessAppName')), '-54a07183')]"
                                 },
                                 {
                                     "name": "api_base_url",
@@ -984,7 +984,7 @@
                                 },
                                 {
                                     "name": "WEBSITE_CONTENTSHARE",
-                                    "value": "[concat(toLower(variables('configAppName')), '9ded')]"
+                                    "value": "[concat(toLower(variables('etlActionAppName')), '-91707584')]"
                                 },
                                 {
                                     "name": "api_base_url",
@@ -1341,7 +1341,7 @@
                                 },
                                 {
                                     "name": "WEBSITE_CONTENTSHARE",
-                                    "value": "[concat(toLower(variables('configAppName')), '9ded')]"
+                                    "value": "[concat(toLower(variables('csApiAppName')), '9ded')]"
                                 },
                                 {
                                     "name": "api_base_url",
@@ -1503,7 +1503,7 @@
                                 },
                                 {
                                     "name": "WEBSITE_CONTENTSHARE",
-                                    "value": "[concat(toLower(variables('configAppName')), '9ded')]"
+                                    "value": "[concat(toLower(variables('csProcessAppName')), '-54a07183')]"
                                 },
                                 {
                                     "name": "api_base_url",
@@ -1681,7 +1681,7 @@
                                 },
                                 {
                                     "name": "WEBSITE_CONTENTSHARE",
-                                    "value": "[concat(toLower(variables('configAppName')), '9ded')]"
+                                    "value": "[concat(toLower(variables('csRetryAppName')), '9ded')]"
                                 },
                                 {
                                     "name": "api_base_url",
