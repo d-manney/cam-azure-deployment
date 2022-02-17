@@ -310,10 +310,6 @@
                                     "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')),'2019-06-01').keys[0].value, ';EndpointSuffix=core.windows.net')]"
                                 },
                                 {
-                                    "name": "WEBSITE_CONTENTSHARE",
-                                    "value": "[concat(toLower(variables('etlRenewalAppName')), '-a1017fce')]"
-                                },
-                                {
                                     "name": "api_base_url",
                                     "value": "[concat('https://', variables('etlRenewalAppName'), '.azurewebsites.net', variables('apiVersion'))]"
                                 },
@@ -477,10 +473,6 @@
                                     "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')),'2019-06-01').keys[0].value, ';EndpointSuffix=core.windows.net')]"
                                 },
                                 {
-                                    "name": "WEBSITE_CONTENTSHARE",
-                                    "value": "[concat(toLower(variables('etlApiAppName')), '-56c011a')]"
-                                },
-                                {
                                     "name": "api_base_url",
                                     "value": "[concat('https://', variables('etlApiAppName'), '.azurewebsites.net', variables('apiVersion'))]"
                                 },
@@ -633,10 +625,6 @@
                                 {
                                     "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
                                     "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')),'2019-06-01').keys[0].value, ';EndpointSuffix=core.windows.net')]"
-                                },
-                                {
-                                    "name": "WEBSITE_CONTENTSHARE",
-                                    "value": "[concat(toLower(variables('etlMappingAppName')), '-14411700')]"
                                 },
                                 {
                                     "name": "api_base_url",
@@ -809,10 +797,6 @@
                                     "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')),'2019-06-01').keys[0].value, ';EndpointSuffix=core.windows.net')]"
                                 },
                                 {
-                                    "name": "WEBSITE_CONTENTSHARE",
-                                    "value": "[concat(toLower(variables('etlProcessAppName')), '-54a07183')]"
-                                },
-                                {
                                     "name": "api_base_url",
                                     "value": "[concat('https://', variables('etlProcessAppName'), '.azurewebsites.net', variables('apiVersion'))]"
                                 },
@@ -981,10 +965,6 @@
                                 {
                                     "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
                                     "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')),'2019-06-01').keys[0].value, ';EndpointSuffix=core.windows.net')]"
-                                },
-                                {
-                                    "name": "WEBSITE_CONTENTSHARE",
-                                    "value": "[concat(toLower(variables('etlActionAppName')), '-91707584')]"
                                 },
                                 {
                                     "name": "api_base_url",
@@ -1340,10 +1320,6 @@
                                     "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')),'2019-06-01').keys[0].value, ';EndpointSuffix=core.windows.net')]"
                                 },
                                 {
-                                    "name": "WEBSITE_CONTENTSHARE",
-                                    "value": "[concat(toLower(variables('csApiAppName')), '9ded')]"
-                                },
-                                {
                                     "name": "api_base_url",
                                     "value": "[concat('https://', variables('csApiAppName'), '.azurewebsites.net', variables('apiVersion'))]"
                                 },
@@ -1500,10 +1476,6 @@
                                 {
                                     "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
                                     "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')),'2019-06-01').keys[0].value, ';EndpointSuffix=core.windows.net')]"
-                                },
-                                {
-                                    "name": "WEBSITE_CONTENTSHARE",
-                                    "value": "[concat(toLower(variables('csProcessAppName')), '-54a07183')]"
                                 },
                                 {
                                     "name": "api_base_url",
@@ -1678,10 +1650,6 @@
                                 {
                                     "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
                                     "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')),'2019-06-01').keys[0].value, ';EndpointSuffix=core.windows.net')]"
-                                },
-                                {
-                                    "name": "WEBSITE_CONTENTSHARE",
-                                    "value": "[concat(toLower(variables('csRetryAppName')), '9ded')]"
                                 },
                                 {
                                     "name": "api_base_url",
