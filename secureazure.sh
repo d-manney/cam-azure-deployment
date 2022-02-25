@@ -1,15 +1,20 @@
 #!/bin/bash 
-rg=devxherx5 #$1
-vnetname=VNet1 # $2
+rg=devxherx6 #$1
+vnetname=$(az network vnet list -g $rg --query "[].{Name:name}" -o tsv ) # $2
 subnetName=Subnet1 #$3  #subnet 1 es back there are the funtions, subnet 2 is front
 subnetback=Subnet1
-CosmosaccountName=cosmos-devxherx5dev-io
-mysqlServer=mysql-devxherx5dev-io
+echo Please wait we are getting the information of your Azure deployment
+
+CosmosaccountName=$(az cosmosdb list -g $rg --query "[].{Name:name}" -o tsv)
+mysqlServer=$(az mysql server list -g $rg --query "[].{Name:name}" -o tsv)
 rule=camrule
 
-echo regroup - $rg
+echo Resource Group - $rg
 echo vnetname - $vnetname
 echo subnet - $subnetName
+echo Costos Db - $CosmosaccountName
+echo My sql  - $mysqlServer
+
 read -p'Press any key if all configurations are ok '
 az network public-ip create --resource-group $rg --name NatPublicIP --version IPv4 --sku Standard 
 
@@ -22,7 +27,7 @@ az network vnet subnet update --resource-group $rg --vnet-name $vnetname --name 
 # https://docs.microsoft.com/en-us/azure/azure-functions/functions-how-to-use-nat-gateway#verify-current-outbound-ips this make functions to use the nat
 
 svcEndpoint=$(az network vnet subnet show -g $rg -n $subnetback --vnet-name $vnetname --query 'id' -o tsv)
-             #az network vnet subnet show -g devxherx5 -n Subnet1  --vnet-name VNet1 --query 'id' -o tsv
+             #az network vnet subnet show -g devxherx6 -n Subnet1  --vnet-name VNet1 --query 'id' -o tsv
 echo 'Nat Gateway configured'
 echo $svcEndpoint
 
@@ -33,10 +38,10 @@ az cosmosdb update --name $CosmosaccountName -g $rg --enable-virtual-network tru
 echo adding network rule!!
 az cosmosdb network-rule add -n $CosmosaccountName -g $rg --virtual-network $vnetname --subnet $svcEndpoint  --ignore-missing-vnet-service-endpoint true
 #https://docs.microsoft.com/en-us/azure/cosmos-db/how-to-configure-vnet-service-endpoint here is how to block
-#az cosmosdb network-rule add -n cosmos-devxherx5dev-io -g devxherx5 --virtual-network VNet1 --subnet Subnet1  --ignore-missing-vnet-service-endpoint true
-#az cosmosdb show --name cosmos-devxherx5dev-io -g devxherx5 --query 'isVirtualNetworkFilterEnabled'
-#az cosmosdb show --name cosmos-devxherx5dev-io -g devxherx5 --query 'isVirtualNetworkFilterEnabled'
-#az cosmosdb update --name cosmos-devxherx5dev-io -g devxherx5 --enable-virtual-network true
+#az cosmosdb network-rule add -n cosmos-devxherx6dev-io -g devxherx6 --virtual-network VNet1 --subnet Subnet1  --ignore-missing-vnet-service-endpoint true
+#az cosmosdb show --name cosmos-devxherx6dev-io -g devxherx6 --query 'isVirtualNetworkFilterEnabled'
+#az cosmosdb show --name cosmos-devxherx6dev-io -g devxherx6 --query 'isVirtualNetworkFilterEnabled'
+#az cosmosdb update --name cosmos-devxherx6dev-io -g devxherx6 --enable-virtual-network true
 
 echo finish adding network rule!!
 read -p'Press any key to now configure the subnet for service endpoints for cosmos db'
@@ -45,10 +50,6 @@ az network vnet subnet update -n $subnetback -g $rg --vnet-name $vnetname --serv
 echo finish configuring the subnet for service endpoints for cosmos db!!
 # read -p'Press any key to now to disable cosmosdb access from internet'
 # az cosmosdb update --name $CosmosaccountName --resource-group $rg --enable-public-network false
-
-
-
-
 
 
 read -p'Press any key to configure functions'
