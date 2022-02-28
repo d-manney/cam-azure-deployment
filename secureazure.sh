@@ -1,5 +1,5 @@
 #!/bin/bash 
-rg=devxherx6 #$1
+rg=devxherx10 #$1
 vnetname=$(az network vnet list -g $rg --query "[].{Name:name}" -o tsv ) # $2
 subnetName=Subnet1 #$3  #subnet 1 es back there are the funtions, subnet 2 is front
 subnetback=Subnet1
@@ -46,7 +46,7 @@ az cosmosdb network-rule add -n $CosmosaccountName -g $rg --virtual-network $vne
 echo finish adding network rule!!
 read -p'Press any key to now configure the subnet for service endpoints for cosmos db'
 
-az network vnet subnet update -n $subnetback -g $rg --vnet-name $vnetname --service-endpoints Microsoft.AzureCosmosDB
+az network vnet subnet update -n $subnetback -g $rg --vnet-name $vnetname --service-endpoints Microsoft.AzureCosmosDB Microsoft.ServiceBus
 echo finish configuring the subnet for service endpoints for cosmos db!!
 # read -p'Press any key to now to disable cosmosdb access from internet'
 # az cosmosdb update --name $CosmosaccountName --resource-group $rg --enable-public-network false
@@ -82,7 +82,7 @@ read -p'Press any key to configure vnet on Mysql'
 #https://docs.microsoft.com/en-us/azure/mysql/concepts-data-access-and-security-vnet
 #Configure Vnet service endpoints for Azure Database for MySQL
 
-az network vnet subnet update --name $subnetback --resource-group $rg --vnet-name $vnetname --service-endpoints Microsoft.SQL Microsoft.AzureCosmosDB
+az network vnet subnet update --name $subnetback --resource-group $rg --vnet-name $vnetname --service-endpoints Microsoft.SQL Microsoft.AzureCosmosDB Microsoft.ServiceBus
 az mysql server vnet-rule create --name $rule --resource-group $rg --server $mysqlServer --vnet-name $vnetname --subnet $subnetback
 #https://docs.microsoft.com/en-us/azure/mysql/concepts-data-access-security-private-link#deny-public-access-for-azure-database-for-mysql
 
