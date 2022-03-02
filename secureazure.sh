@@ -12,15 +12,15 @@ rule=camrule
 echo Resource Group - $rg
 echo vnetname - $vnetname
 echo subnet - $subnetName
-echo Costos Db - $CosmosaccountName
-echo My sql  - $mysqlServer
+echo Cosmos Db - $CosmosaccountName
+echo MySQL  - $mysqlServer
 
 read -p'Press any key if all configurations are ok '
 az network public-ip create --resource-group $rg --name NatPublicIP --version IPv4 --sku Standard 
 publicIp=$(az network public-ip list --resource-group $rg --query "[].{ipAddress:ipAddress}" -o tsv)
 echo Public ip created $publicIp
 
-read -p'Public ip created, press any key to now configure the gatewat '
+read -p'Public ip created, press any key to now configure the gateway '
 az network nat gateway create --resource-group $rg --name PwNATgateway --public-ip-addresses  NatPublicIP --idle-timeout 10
 
 read -p'Gateway created, press any key to now add GW to vnet '
@@ -30,7 +30,7 @@ az network vnet subnet update --resource-group $rg --vnet-name $vnetname --name 
 
 svcEndpoint=$(az network vnet subnet show -g $rg -n $subnetback --vnet-name $vnetname --query 'id' -o tsv)
       
-echo 'Nat Gateway configured'
+echo 'NAT Gateway configured'
 echo $svcEndpoint
 
 # # ###### START ----  COSMOS DB CONFIGURATIONS ######
@@ -43,11 +43,11 @@ echo adding network rule!!
 az cosmosdb network-rule add -n $CosmosaccountName -g $rg --virtual-network $vnetname --subnet $svcEndpoint  --ignore-missing-vnet-service-endpoint true
 
 
-echo finish adding network rule!!
-read -p'Press any key to now configure the subnet for service endpoints for cosmos db'
+echo finished adding network rule!!
+read -p'Press any key to now configure the subnet used for service endpoints for the cosmos db'
 
 az network vnet subnet update -n $subnetback -g $rg --vnet-name $vnetname --service-endpoints Microsoft.AzureCosmosDB Microsoft.ServiceBus
-echo finish configuring the subnet for service endpoints for cosmos db!!
+echo finished configuring the subnet for service endpoints for cosmos db!!
 
 # # ######################################################
 # # ###### FINISH ----  COSMOS DB CONFIGURATIONS ######
@@ -59,7 +59,7 @@ etl='etl-api'
 
 az functionapp list --resource-group $rg --query "[].{Name:name}" -o tsv |
 while read -r name; do
-    echo "Procesing function " $name 
+    echo "Processing function " $name 
     az functionapp config set --vnet-route-all-enabled false -g $rg -n $name 
     az functionapp config set -g $rg -n $name --ftps-state Disabled
     az functionapp update -g $rg -n $name --set httpsOnly=true
@@ -146,11 +146,11 @@ done
 # mysql changes 
 # enforce ssl https://docs.microsoft.com/en-us/azure/mysql/howto-configure-ssl
 # echo internet access to cosmosdb disabled!!
-read -p'Press any key to enforce ssl on Mysql'
+read -p'Press any key to enforce ssl on MySQL'
 az mysql server update --resource-group $rg --name $mysqlServer --ssl-enforcement Enabled
 
-echo finish enforcing ssl!
-read -p'Press any key to configure vnet on Mysql'
+echo finished enforcing ssl!
+read -p'Press any key to configure vnet on MySQL'
 
 
 #Configure Vnet service endpoints for Azure Database for MySQL
