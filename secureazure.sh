@@ -160,8 +160,8 @@ az mysql server vnet-rule create --name $rule --resource-group $rg --server $mys
 
 
 echo finished configuring vnet for MySQL!
-read -p'Press any key to disable public ip access to MySQL'
-az mysql server update --resource-group $rg --name $mysqlServer  --set publicNetworkAccess="Disabled"
+# read -p'Press any key to disable public ip access to MySQL'
+# az mysql server update --resource-group $rg --name $mysqlServer  --set publicNetworkAccess="Disabled"
 
 
-echo finished disabling public ip access to MySQL!
+# echo finished disabling public ip access to MySQL!
