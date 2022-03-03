@@ -146,10 +146,10 @@ done
 # mysql changes 
 # enforce ssl https://docs.microsoft.com/en-us/azure/mysql/howto-configure-ssl
 # echo internet access to cosmosdb disabled!!
-read -p'Press any key to enforce ssl on MySQL'
-az mysql server update --resource-group $rg --name $mysqlServer --ssl-enforcement Enabled
+# read -p'Press any key to enforce ssl on MySQL'
+# az mysql server update --resource-group $rg --name $mysqlServer --ssl-enforcement Enabled
 
-echo finished enforcing ssl!
+# echo finished enforcing ssl!
 read -p'Press any key to configure vnet on MySQL'
 
 
@@ -159,9 +159,9 @@ az network vnet subnet update --name $subnetback --resource-group $rg --vnet-nam
 az mysql server vnet-rule create --name $rule --resource-group $rg --server $mysqlServer --vnet-name $vnetname --subnet $subnetback
 
 
-echo finish configuring vnet for mysql!
-read -p'Press any key to disable public ip access to Mysql'
+echo finished configuring vnet for MySQL!
+read -p'Press any key to disable public ip access to MySQL'
 az mysql server update --resource-group $rg --name $mysqlServer  --set publicNetworkAccess="Disabled"
 
 
-echo finish public ip mysql is disable
+echo finished disabling public ip access to MySQL!
